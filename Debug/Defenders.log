@@ -1,8 +1,4 @@
-﻿  globals.cpp
-d:\prog\defenders\globals.cpp(2): warning C4067: непредвиденные лексемы за директивой препроцессора, требуется newline
-  Создание кода...
-  Компиляция...
-  main.cpp
+﻿  main.cpp
 d:\prog\defenders\enemies.h(26): warning C4244: аргумент: преобразование "float" в "int", возможна потеря данных
 d:\prog\defenders\enemies.h(35): warning C4244: +=: преобразование "double" в "float", возможна потеря данных
 d:\prog\defenders\enemies.h(36): warning C4244: +=: преобразование "double" в "float", возможна потеря данных
@@ -11,8 +7,8 @@ d:\prog\defenders\enemies.h(45): warning C4244: инициализация: пр
 d:\prog\defenders\towers.h(29): warning C4244: =: преобразование "double" в "float", возможна потеря данных
 d:\prog\defenders\towers.h(60): warning C4244: аргумент: преобразование "float" в "int", возможна потеря данных
 d:\prog\defenders\towers.h(74): warning C4244: аргумент: преобразование "float" в "int", возможна потеря данных
-d:\prog\defenders\main.cpp(34): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
-d:\prog\defenders\main.cpp(52): warning C4244: инициализация: преобразование "sf::Int64" в "float", возможна потеря данных
-  Создание кода...
+d:\prog\defenders\main.cpp(52): warning C4244: =: преобразование "double" в "float", возможна потеря данных
+d:\prog\defenders\main.cpp(77): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+d:\prog\defenders\main.cpp(100): warning C4244: инициализация: преобразование "sf::Int64" в "float", возможна потеря данных
   Defenders.vcxproj -> D:\prog\Debug\Defenders.exe
   Defenders.vcxproj -> D:\prog\Debug\Defenders.pdb (Partial PDB)

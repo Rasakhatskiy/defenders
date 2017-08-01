@@ -28,9 +28,9 @@ void loadTextures() {
 	heartStoneSpr.setPosition(500, 500);
 	heartStoneSpr.setOrigin(32, 32);
 
-	playerSpr.setTexture(tilesetTexture);
+	/*playerSpr.setTexture(tilesetTexture);
 	playerSpr.setTextureRect(IntRect(117, 0, 50, 50));
 	playerSpr.setPosition(500, 500);
-	playerSpr.setOrigin(32, 32);
+	playerSpr.setOrigin(32, 32);*/
 
 }

@@ -19,6 +19,40 @@ class Player {
 public:
 	float health;
 	Vector2f pos;
+	bool isFight;
+	Sprite sprite;
+	float angle;
+	float damage;
+	Player() {
+		health = 200;
+		pos = Vector2f(500, 500);
+		isFight = false;
+		sprite.setTexture(tilesetTexture);
+		sprite.setTextureRect(IntRect(117, 0, 50, 50));
+		sprite.setOrigin(25, 25);
+	}
+	void move(float time) {
+		if (Keyboard::isKeyPressed(Keyboard::W)) {
+			pos.y -= time / 10;
+		}
+		if (Keyboard::isKeyPressed(Keyboard::S)) {
+			pos.y += time / 10;
+		}
+		if (Keyboard::isKeyPressed(Keyboard::A)) {
+			pos.x -= time / 10;
+		}
+		if (Keyboard::isKeyPressed(Keyboard::D)) {
+			pos.x += time / 10;
+		}
+		sprite.setPosition(pos);
+	}
+	void rotation(Vector2f mouse) {
+		float dX = mouse.x - pos.x;
+		float dY = mouse.y - pos.y;
+		angle = (atan2(dY, dX)) * 180 / 3.14159265;
+		angle -= 90;
+		sprite.setRotation(angle);
+	}
 };
 
 
@@ -47,14 +81,19 @@ void drawMap(RenderWindow &window) {
 }
 int main() {
 	RenderWindow window(_Mode1280x720_, "Defenders");
+	View view;
+	view.reset(sf::FloatRect(100, 100, 1280, 720));
 	Clock clock;
-	loadTextures();
-	setMap();
-	float angle = 0;
-	float clickTimer = 0;
 	std::vector<Enemy> enemiesVector;
 	std::vector<Arrow> arrowsVector;
 	Tower tower(Vector2f(100, 100), 100, 10);
+	Player player;
+	float angle = 0;
+	float clickTimer = 0;
+
+	loadTextures();
+	setMap();
+	
 	
 	while (window.isOpen()) {
 		window.clear();
@@ -125,7 +164,11 @@ int main() {
 			}
 		}
 
+		player.move(time);
+		player.rotation(pos);
 
+		view.setCenter(player.pos);
+		window.setView(view);
 
 		drawMap(window);
 		window.draw(heartStoneSpr);
@@ -137,6 +180,7 @@ int main() {
 		for (auto i = arrowsVector.begin(); i != arrowsVector.end(); i++) {
 			i->draw(window);
 		}
+		window.draw(player.sprite);
 		window.display();
 	}
 }
