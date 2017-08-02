@@ -2,6 +2,8 @@
 #include <SFML\Graphics.hpp>
 #include <iostream>
 #include "globals.h"
+#include "Bullets.h"
+#include "Enemies.h"
 using namespace sf;
 
 class Tower {
@@ -23,14 +25,11 @@ public:
 		angle = 0;
 		timer = 0;
 	}
-	void rotation(Vector2f en, float time) {
+	void rotation(Vector2f en) {
 		float dX = en.x - pos.x;
 		float dY = en.y - pos.y;
 		angle = (atan2(dY, dX)) * 180 / 3.14159265;
-		timer += time / 10;
-		if (timer > 100)isAttac = true;
-		if (timer > 105)timer = 105;
-		angle += 90;
+		angle += 90;//kostil`
 		sprite.setRotation(angle);
 	}
 	void draw(RenderWindow &window) {
@@ -39,42 +38,30 @@ public:
 		window.draw(platformSpr);
 		window.draw(sprite);
 	}
+	void fire(std::vector<Enemy>& vectorEnemies, std::vector<Arrow>& vectorArrows) {
+		float minDist = 66666666;//PATAMUCHTA
+		Vector2f temp(pos);
+		for (auto i = vectorEnemies.begin(); i != vectorEnemies.end(); i++) {
+			float distance = sqrt((i->pos.x - pos.x)*(i->pos.x - pos.x) + (i->pos.y - pos.y)*(i->pos.y - pos.y));
+			if (distance < minDist) {
+				minDist = distance;
+				temp = i->pos;
+			}
+		}
+		if (isAttac) {
+			rotation(temp);
+			Arrow temp(pos, temp, angle);
+			vectorArrows.push_back(temp);
+			timer = 0;
+		}
+	}
+	void update(RenderWindow &window, float time, std::vector<Enemy>& vectorEnemies, std::vector<Arrow>& vectorArrows) {
+		timer += time / 10;
+		if (timer > 100)isAttac = true;
+		else isAttac = false;
+		if (timer > 105)timer = 105;
+		fire(vectorEnemies, vectorArrows);
+		draw(window);
+	}
 };
 
-class Arrow {
-public:
-	Vector2f pos, tar;
-	IntRect rect;
-	float speed;
-	Sprite sprite;
-	bool done;
-	Arrow(Vector2f p, Vector2f t, float r) {
-		pos = p;
-		tar = t;
-		speed = 0.5;
-		sprite.setTexture(tilesetTexture);
-		sprite.setTextureRect(IntRect(0, 17, 11, 26));
-		sprite.setOrigin(4, 21);
-		sprite.setRotation(r);
-		done = false;
-		rect = IntRect(pos.x, pos.y, 11, 26);
-	}
-	void move(float time) {
-		//distance to target
-		float distance = sqrt((tar.x - pos.x)*(tar.x - pos.x) + (tar.y - pos.y)*(tar.y - pos.y));
-	
-		if (distance > 35) {
-			//moving
-			pos.x += speed*time*(tar.x - pos.x) / distance;
-			pos.y += speed*time*(tar.y - pos.y) / distance;
-		}
-		else {
-			done = true;
-		}
-		rect = IntRect(pos.x, pos.y, 8, 21);
-		sprite.setPosition(pos);
-	}
-	void draw(RenderWindow &window) {
-		window.draw(sprite);
-	}
-};

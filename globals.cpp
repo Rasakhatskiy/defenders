@@ -1,16 +1,21 @@
 #include<SFML\Graphics.hpp>
 #include "globals.h";
+#include "Enemies.h"
+#include "Bullets.h"
 using namespace sf;
 
-Texture tilesetTexture, arbaletTex, platformTex, playerTexture, enemyTexture;
+Texture tilesetTexture, arbaletTex, platformTex, playerTexture, enemyTexture, grassTex;
 Sprite grassSpr, tower1Spr, platformSpr, playerSpr, enemySpr, heartStoneSpr;
 
-unsigned short map[100][100];
+
+unsigned short map[100][100][2];
 
 void loadTextures() {
 	tilesetTexture.loadFromFile("res/defenders-tiles.png");
-	grassSpr.setTexture(tilesetTexture);
-	grassSpr.setTextureRect(IntRect(0, 0, 16, 16));
+
+	grassTex.loadFromFile("res/grass.png");
+	grassSpr.setTexture(grassTex);
+	//grassSpr.setTextureRect(IntRect(0, 0, 16, 16));
 
 	arbaletTex.loadFromFile("res/arbalet.png");
 
