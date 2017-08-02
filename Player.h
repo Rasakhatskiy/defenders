@@ -18,15 +18,19 @@ public:
 	}
 	void move(float time) {
 		if (Keyboard::isKeyPressed(Keyboard::W)) {
-			pos.y -= time / 10;
+			if(map[(int)(pos.x/50)][(int)((pos.y - 1) / 50)][1] == 0)
+				pos.y -= time / 10;
 		}
 		if (Keyboard::isKeyPressed(Keyboard::S)) {
-			pos.y += time / 10;
+			if (map[(int)(pos.x / 50)][(int)((pos.y + 1) / 50)][1] == 0)
+				pos.y += time / 10;
 		}
 		if (Keyboard::isKeyPressed(Keyboard::A)) {
+			if (map[(int)((pos.x -1)/ 50)][(int)(pos.y / 50)][1] == 0)
 			pos.x -= time / 10;
 		}
 		if (Keyboard::isKeyPressed(Keyboard::D)) {
+			if (map[(int)((pos.x - 1) / 50)][(int)(pos.y / 50)][1] == 0)
 			pos.x += time / 10;
 		}
 		sprite.setPosition(pos);

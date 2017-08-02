@@ -9,11 +9,16 @@ d:\prog\defenders\enemies.h(39): warning C4244: аргумент: преобра
 d:\prog\defenders\enemies.h(45): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
 d:\prog\defenders\towers.h(31): warning C4244: =: преобразование "double" в "float", возможна потеря данных
 d:\prog\defenders\towers.h(42): warning C4305: инициализация: усечение из "int" в "float"
-d:\prog\defenders\player.h(37): warning C4244: =: преобразование "double" в "float", возможна потеря данных
+d:\prog\defenders\player.h(41): warning C4244: =: преобразование "double" в "float", возможна потеря данных
 d:\prog\defenders\game.cpp(24): warning C4244: инициализация: преобразование "sf::Int64" в "float", возможна потеря данных
 d:\prog\defenders\game.cpp(36): warning C4244: инициализация: преобразование "float" в "int", возможна потеря данных
 d:\prog\defenders\game.cpp(37): warning C4244: инициализация: преобразование "float" в "int", возможна потеря данных
 d:\prog\defenders\game.cpp(43): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
 d:\prog\defenders\game.cpp(162): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+  Создание кода...
+  Пропуск... (изменения не обнаружены)
+  main.cpp
+  globals.cpp
+  Menu.cpp
   Defenders.vcxproj -> D:\prog\Debug\Defenders.exe
   Defenders.vcxproj -> D:\prog\Debug\Defenders.pdb (Partial PDB)
