@@ -20,7 +20,7 @@ public:
 		damage = dmg;
 		sprite.setTexture(tilesetTexture);
 		sprite.setTextureRect(IntRect(17,17,34,34));
-		sprite.setOrigin(25, 25);
+		sprite.setOrigin(17, 17);
 		angle = 0;
 		isMove = true;
 		rect = IntRect(pos.x, pos.y, 34, 34);
@@ -31,9 +31,24 @@ public:
 				+ (tar.y - pos.y)*(tar.y - pos.y));
 
 			if (distance > 2) {
-
-				pos.x += 0.05*time*(tar.x - pos.x) / distance;
-				pos.y += 0.05*time*(tar.y - pos.y) / distance;
+				float coefX = (tar.x - pos.x) / distance;
+				float coefY = (tar.y - pos.y) / distance;
+				if (coefX > 0) {
+					if (map[(int)((pos.x + 17) / 50)][(int)(pos.y / 50)][1] == 0)
+						pos.x += 0.05*time*(tar.x - pos.x) / distance;
+				}
+				else {
+					if (map[(int)((pos.x - 17) / 50)][(int)(pos.y / 50)][1] == 0)
+						pos.x += 0.05*time*(tar.x - pos.x) / distance;
+				}
+				if (coefY > 0) {
+					if (map[(int)(pos.x / 50)][(int)((pos.y + 17) / 50)][1] == 0)
+						pos.y += 0.05*time*(tar.y - pos.y) / distance;
+				}
+				else {
+					if (map[(int)(pos.x / 50)][(int)((pos.y - 17) / 50)][1] == 0)
+						pos.y += 0.05*time*(tar.y - pos.y) / distance;
+				}	
 			}
 		}
 		rect = IntRect(pos.x, pos.y, 34, 34);

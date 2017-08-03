@@ -17,6 +17,8 @@ public:
 	bool isAttac;
 	Tower(Vector2f p, short hp, short dmg) {
 		pos = p;
+		pos.x += 50;
+		pos.y += 50;
 		health = hp;
 		damage = dmg;
 		sprite.setTexture(arbaletTex);

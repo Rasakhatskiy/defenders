@@ -8,13 +8,15 @@ void game(RenderWindow &window) {
 	View view;
 	view.reset(sf::FloatRect(100, 100, 1280, 720));
 	Clock clock;
-	RessurectStone ResStone;
-	Player player(ResStone.sprite.getPosition());
+	
+	
 	float angle = 0;
 	float clickTimer = 0;
 
 	loadTextures();
 	setMap();
+	RessurectStone ResStone;
+	Player player(Vector2f(ResStone.sprite.getPosition().x + 100, ResStone.sprite.getPosition().y + 100));
 
 	std::vector<Enemy> enemiesVector;
 	std::vector<Arrow> arrowsVector;
