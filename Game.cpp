@@ -3,10 +3,10 @@
 #include "Enemies.h"
 #include "Player.h"
 #include "RessurectStone.h"
+#include "Gui.h"
 
 void game(RenderWindow &window) {
-	View view;
-	view.reset(sf::FloatRect(100, 100, 1280, 720));
+	
 	Clock clock;
 	
 	
@@ -17,7 +17,7 @@ void game(RenderWindow &window) {
 	setMap();
 	RessurectStone ResStone;
 	Player player(Vector2f(ResStone.sprite.getPosition().x + 100, ResStone.sprite.getPosition().y + 100));
-
+	healthBar bar(1000);
 	std::vector<Enemy> enemiesVector;
 	std::vector<Arrow> arrowsVector;
 	std::vector<Tower> towersVector;
@@ -34,6 +34,12 @@ void game(RenderWindow &window) {
 		Vector2f pos = window.mapPixelToCoords(pixelPos);
 
 		if (clickTimer > 200) {
+			if (Keyboard::isKeyPressed(Keyboard::P)) {
+				player.health+=5;
+			}
+			if (Keyboard::isKeyPressed(Keyboard::O)) {
+				player.health -= 5;
+			}
 			if (Keyboard::isKeyPressed(Keyboard::T)) {
 				int tx = pos.x / 50;
 				int ty = pos.y / 50;
@@ -70,6 +76,11 @@ void game(RenderWindow &window) {
 					j->done = true;
 				}
 			}
+			if (i->rect.intersects(player.rect) && player.hurtTimer > 100 && i->attacTimer >50) {
+				player.health -= 15;
+				player.hurtTimer = 0;
+				i->attacTimer = 0;
+			}
 		}
 
 
@@ -101,9 +112,7 @@ void game(RenderWindow &window) {
 			}
 		}
 
-
-		player.move(time);
-		player.rotation(pos);
+		player.update(time, pos);
 		//VIEW
 		if (player.pos.x <= 640 && player.pos.y <= 360) {
 			view.setCenter(640, 360);
@@ -140,6 +149,7 @@ void game(RenderWindow &window) {
 		}
 
 		window.draw(player.sprite);
+		bar.draw(window, player.health);
 		window.display();
 	}
 }

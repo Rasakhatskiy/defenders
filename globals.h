@@ -31,6 +31,9 @@ const short _MapSize_ = 100;
 
 extern Texture tilesetTexture, arbaletTex, platformTex, playerTexture, enemyTexture;
 extern Sprite grassSpr, tower1Spr, platformSpr, playerSpr, enemySpr, heartStoneSpr;
+extern Font font;
+extern View view;
+
 
 extern unsigned short map[_MapSize_][_MapSize_][2];
 

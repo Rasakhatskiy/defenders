@@ -8,6 +8,7 @@ public:
 	unsigned short life;
 	unsigned short damage;
 	float angle;
+	float attacTimer, hurtTimer;
 	Vector2f pos;
 	Texture texture;
 	Sprite sprite;
@@ -15,6 +16,8 @@ public:
 	bool isMove;
 
 	Enemy(Vector2f p, unsigned short hp, unsigned short dmg) {
+		attacTimer = 0;
+		hurtTimer = 0;
 		life = hp;
 		pos = p;
 		damage = dmg;
@@ -26,6 +29,11 @@ public:
 		rect = IntRect(pos.x, pos.y, 34, 34);
 	}
 	void move(Vector2f tar, float time) {
+		attacTimer += time;
+		if (attacTimer > 500) attacTimer = 500;
+		hurtTimer += time;
+		if (hurtTimer > 500) hurtTimer = 500;
+
 		if (isMove) {
 			float distance = sqrt((tar.x - pos.x)*(tar.x - pos.x)
 				+ (tar.y - pos.y)*(tar.y - pos.y));

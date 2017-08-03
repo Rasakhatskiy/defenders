@@ -28,6 +28,7 @@
     <ClInclude Include="Bullets.h" />
     <ClInclude Include="Enemies.h" />
     <ClInclude Include="globals.h" />
+    <ClInclude Include="Gui.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="RessurectStone.h" />
     <ClInclude Include="towers.h" />

@@ -6,11 +6,13 @@ using namespace sf;
 
 Texture tilesetTexture, arbaletTex, platformTex, playerTexture, enemyTexture, grassTex;
 Sprite grassSpr, tower1Spr, platformSpr, playerSpr, enemySpr, heartStoneSpr;
-
+Font font;
+View view;
 
 unsigned short map[100][100][2];
 
 void loadTextures() {
+	view.reset(sf::FloatRect(100, 100, 1280, 720));
 	tilesetTexture.loadFromFile("res/defenders-tiles.png");
 
 	grassTex.loadFromFile("res/grass.png");
@@ -32,6 +34,8 @@ void loadTextures() {
 	heartStoneSpr.setTextureRect(IntRect(100, 100, 100, 100));
 	heartStoneSpr.setPosition(500, 500);
 	heartStoneSpr.setOrigin(32, 32);
+
+	font.loadFromFile("Trebuchet.ttf");
 
 	/*playerSpr.setTexture(tilesetTexture);
 	playerSpr.setTextureRect(IntRect(117, 0, 50, 50));
