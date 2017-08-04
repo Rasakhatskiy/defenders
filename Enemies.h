@@ -69,6 +69,7 @@ public:
 		sprite.setRotation(rotation - 90);
 	}
 	void draw(RenderWindow &window) {
-		window.draw(sprite);
+		if(entityOnTheScreen(window, pos))
+			window.draw(sprite);
 	}
 };

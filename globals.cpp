@@ -5,7 +5,7 @@
 using namespace sf;
 
 Texture tilesetTexture, arbaletTex, platformTex, playerTexture, enemyTexture, grassTex;
-Sprite grassSpr, tower1Spr, platformSpr, playerSpr, enemySpr, heartStoneSpr;
+Sprite grassSpr, tower1Spr, platformSpr, playerSpr, enemySpr, heartStoneSpr, wallSpr;
 Font font;
 View view;
 
@@ -37,9 +37,6 @@ void loadTextures() {
 
 	font.loadFromFile("Trebuchet.ttf");
 
-	/*playerSpr.setTexture(tilesetTexture);
-	playerSpr.setTextureRect(IntRect(117, 0, 50, 50));
-	playerSpr.setPosition(500, 500);
-	playerSpr.setOrigin(32, 32);*/
-
+	wallSpr.setTexture(tilesetTexture);
+	wallSpr.setTextureRect(IntRect(0, 200, 50, 50));
 }

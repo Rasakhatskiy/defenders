@@ -8,8 +8,6 @@
 void game(RenderWindow &window) {
 	
 	Clock clock;
-	
-	
 	float angle = 0;
 	float clickTimer = 0;
 
@@ -21,12 +19,37 @@ void game(RenderWindow &window) {
 	std::vector<Enemy> enemiesVector;
 	std::vector<Arrow> arrowsVector;
 	std::vector<Tower> towersVector;
+	std::vector<Wall> wallsVector;
+
+	Text fpsText;
+	fpsText.setFont(font);
+	fpsText.setCharacterSize(16);
+	fpsText.setColor(Color::White);
+
+	float lastTime = 0;
+	float fpsTimer = 0;
 	while (window.isOpen()) {
 		window.clear();
 		float time = clock.getElapsedTime().asMicroseconds();
-		clock.restart();
+		//clock.restart();
+
+		float currentTime = clock.restart().asSeconds();
+		float fps = 1.f / (currentTime);
+		lastTime = currentTime;
+		Vector2f fpsPos(view.getCenter().x - 300, view.getCenter().y + 200);
+		if (fpsTimer > 100) {
+			fpsText.setString("FPS: " + std::to_string(fps));
+			fpsTimer = 0;
+		}
+		
+
+		fpsText.setPosition(fpsPos);
+
 		time = time / 900;
 		clickTimer += time;
+		fpsTimer += time;
+
+		if (fpsTimer > 1000) fpsTimer = 1000;
 		if (clickTimer > 1000) clickTimer = 1000;
 
 		Vector2i pixelPos = Mouse::getPosition(window);
@@ -34,6 +57,12 @@ void game(RenderWindow &window) {
 		Vector2f pos = window.mapPixelToCoords(pixelPos);
 
 		if (clickTimer > 200) {
+			if (Keyboard::isKeyPressed(Keyboard::Q)) {
+				map[(int)(pos.x / 50)][(int)(pos.y / 50)][1] = 1;
+				clickTimer = 0;
+			}
+
+
 			if (Keyboard::isKeyPressed(Keyboard::P)) {
 				player.health+=5;
 			}
@@ -72,7 +101,6 @@ void game(RenderWindow &window) {
 			for (auto j = arrowsVector.begin(); j != arrowsVector.end(); j++) {
 				if (i->rect.intersects(j->rect)) {
 					i->life -= 10;
-					cout << i->life << endl;
 					j->done = true;
 				}
 			}
@@ -130,10 +158,14 @@ void game(RenderWindow &window) {
 				}
 		}
 
+
 		window.setView(view);
 
 		drawMap(window);
 
+
+
+		/////////////////////////////////////////////////////////////////////////
 		//update & draw towers
 		for (auto i = towersVector.begin(); i != towersVector.end(); i++) {
 			i->update(window, time, enemiesVector, arrowsVector);
@@ -147,6 +179,8 @@ void game(RenderWindow &window) {
 		for (auto i = arrowsVector.begin(); i != arrowsVector.end(); i++) {
 			i->draw(window);
 		}
+
+		window.draw(fpsText);
 
 		window.draw(player.sprite);
 		bar.draw(window, player.health);
@@ -165,14 +199,47 @@ void setMap() {
 
 }
 void drawMap(RenderWindow &window) {
-	Sprite t;
-	for (int i = 0; i < _MapSize_; i++) {
-		for (int j = 0; j < _MapSize_; j++) {
+	long counter = 0;
+	Sprite t, empty;
+	//IntRect r;
+	Vector2f center = window.getView().getCenter();
+	/*IntRect rect(center.x - window.getSize().x / 2,
+		center.y - window.getSize().y / 2,
+		window.getSize().x,
+		window.getSize().y);*/
+	int p1 = ((center.x - window.getSize().x / 2) / 50) - 1,
+		p2 = ((center.y - window.getSize().y / 2) / 50) - 1,
+		p3 = ((center.x + window.getSize().x / 2) / 50) + 1,
+		p4 = ((center.y + window.getSize().y / 2) / 50) + 1;
+	if (p1 < 0)p1 = 0;
+	if (p2 < 0)p2 = 0;
+	if (p3 > _MapSize_) p3 = _MapSize_;
+	if (p4 > _MapSize_) p4 = _MapSize_;
+
+	for (int i = p1; i < p3; i++) {
+		for (int j = p2; j < p4; j++) {
 			if (map[i][j][0] == 0) {
 				t = grassSpr;
+			}
+			else {
+				t = empty;
+			}
+			
+			t.setPosition(i * 50, j * 50);
+			window.draw(t);
+		}
+	}
+	for (int i = p1; i < p3; i++) {
+		for (int j = p2; j < p4; j++) {
+			if (map[i][j][1] == 1) {
+				t = wallSpr;
+			}
+			else {
+				t = empty;
 			}
 			t.setPosition(i * 50, j * 50);
 			window.draw(t);
 		}
 	}
+	//cout << counter << endl;
 }

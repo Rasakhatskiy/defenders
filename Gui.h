@@ -1,29 +1,45 @@
 #pragma once
 #include "globals.h"
 
+
+
+
 class healthBar {
 public:
 	int max;
-	Sprite sprite;
+
 	Text text;
-	string string;
+	string str;
+	RectangleShape shape;
 	healthBar(int m) {
+		shape.setSize(Vector2f(m, 20));
+		shape.setFillColor(Color::Red);
+		
 		max = m;
 		text.setFont(font);
 		text.setCharacterSize(8);
 		text.setColor(Color::Black);
-		sprite.setTexture(tilesetTexture);
-		sprite.setTextureRect(IntRect(167, 0, 1, 40));
+		
 	}
 
 	void draw(RenderWindow &window, int h) {
-		string = std::to_string(h) + "/" + std::to_string(max);
-		text.setString(string);
+		str = std::to_string(h) + "/" + std::to_string(max);
+		text.setString(str);
 		//-_-_-_-__-text position
-		for (int i = 0; i < h; i++) {
-			Vector2f tpos(view.getCenter().x-550, view.getCenter().y + 250);
-			sprite.setPosition(tpos.x + 1*i, tpos.y);
-			window.draw(sprite);
-		}
+		Vector2f tpos(view.getCenter().x - 550, view.getCenter().y + 250);
+		shape.setPosition(tpos);
+		shape.setSize(Vector2f(h, 20));
+		window.draw(shape);
 	}
 };
+
+bool entityOnTheScreen(RenderWindow &window, Vector2f pos) {
+	Vector2f center = window.getView().getCenter();
+	float p1 = (center.x - window.getSize().x / 2)-50,
+		p2 = (center.y - window.getSize().y / 2)-50,
+		p3 = (center.x + window.getSize().x / 2)+50,
+		p4 = (center.y + window.getSize().y / 2)+50;
+	if (pos.x > p1 && pos.x < p3 && pos.y > p2 && pos.y < p4)
+		return true;
+	else return false;
+}

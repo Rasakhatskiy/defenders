@@ -37,8 +37,11 @@ public:
 	void draw(RenderWindow &window) {
 		
 		platformSpr.setPosition(pos);
-		window.draw(platformSpr);
-		window.draw(sprite);
+		if (entityOnTheScreen(window, pos)) {
+			window.draw(platformSpr);
+			window.draw(sprite);
+		}
+		
 	}
 	void fire(std::vector<Enemy>& vectorEnemies, std::vector<Arrow>& vectorArrows) {
 		float minDist = 66666666;//PATAMUCHTA
@@ -67,3 +70,13 @@ public:
 	}
 };
 
+class Wall {
+	short health;
+	Vector2i pos;
+
+	Wall(Vector2i p, short h/*, short typo*/) {
+		health = h;
+		pos = p;
+		map[pos.x][pos.y][1] = 1;
+	}
+};

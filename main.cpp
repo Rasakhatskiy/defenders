@@ -13,5 +13,7 @@
 
 int main() {
 	RenderWindow window(_Mode1280x720_, "Defenders");
+	//window.setVerticalSyncEnabled(true);
+	//window.setFramerateLimit(60);
 	menu(window);
 }
