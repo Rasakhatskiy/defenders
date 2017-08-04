@@ -12,20 +12,41 @@ public:
 	short damage;
 	Sprite sprite;
 	Vector2f pos;
+	IntRect rect;
 	float angle;
 	float timer;
+	float coef;
+	float hurtTimer;
 	bool isAttac;
+	int posOnMapX, posOnMapY;
 	Tower(Vector2f p, short hp, short dmg) {
+		timer = 0;
+		hurtTimer = 0;
 		pos = p;
 		pos.x += 50;
 		pos.y += 50;
+
 		health = hp;
+		coef = 100.0/health;
 		damage = dmg;
+
 		sprite.setTexture(arbaletTex);
 		sprite.setPosition(pos);
 		sprite.setOrigin(60, 60);
-		angle = 0;
-		timer = 0;
+		rect = IntRect(pos.x-50, pos.y-50, 100, 100);
+		
+		posOnMapX = (pos.x-50) / 50;
+		posOnMapY = (pos.y-50) / 50;
+		map[posOnMapX][posOnMapY][1] = 10;
+		map[posOnMapX + 1][posOnMapY][1] = 11;
+		map[posOnMapX][posOnMapY + 1][1] = 11;
+		map[posOnMapX + 1][posOnMapY + 1][1] = 11;
+	}
+		void clearMap() {
+		map[posOnMapX][posOnMapY][1] = 0;
+		map[posOnMapX + 1][posOnMapY][1] = 0;
+		map[posOnMapX][posOnMapY + 1][1] = 0;
+		map[posOnMapX + 1][posOnMapY + 1][1] = 0;
 	}
 	void rotation(Vector2f en) {
 		float dX = en.x - pos.x;
@@ -40,6 +61,11 @@ public:
 		if (entityOnTheScreen(window, pos)) {
 			window.draw(platformSpr);
 			window.draw(sprite);
+			RectangleShape shape;
+			shape.setFillColor(Color::Green);
+			shape.setPosition(pos.x-50, pos.y + 45);
+			shape.setSize(Vector2f(coef*health, 2));
+			window.draw(shape);
 		}
 		
 	}
@@ -64,6 +90,8 @@ public:
 		timer += time / 10;
 		if (timer > 100)isAttac = true;
 		else isAttac = false;
+		hurtTimer += time;
+		if (hurtTimer > 500) hurtTimer = 500;
 		if (timer > 105)timer = 105;
 		fire(vectorEnemies, vectorArrows);
 		draw(window);

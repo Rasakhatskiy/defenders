@@ -8,6 +8,8 @@ Texture tilesetTexture, arbaletTex, platformTex, playerTexture, enemyTexture, gr
 Sprite grassSpr, tower1Spr, platformSpr, playerSpr, enemySpr, heartStoneSpr, wallSpr;
 Font font;
 View view;
+Text fpsText;
+
 
 unsigned short map[100][100][2];
 
@@ -39,4 +41,8 @@ void loadTextures() {
 
 	wallSpr.setTexture(tilesetTexture);
 	wallSpr.setTextureRect(IntRect(0, 200, 50, 50));
+
+	fpsText.setFont(font);
+	fpsText.setCharacterSize(16);
+	fpsText.setColor(Color::White);
 }

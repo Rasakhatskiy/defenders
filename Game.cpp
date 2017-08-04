@@ -16,15 +16,13 @@ void game(RenderWindow &window) {
 	RessurectStone ResStone;
 	Player player(Vector2f(ResStone.sprite.getPosition().x + 100, ResStone.sprite.getPosition().y + 100));
 	healthBar bar(1000);
-	std::vector<Enemy> enemiesVector;
-	std::vector<Arrow> arrowsVector;
-	std::vector<Tower> towersVector;
-	std::vector<Wall> wallsVector;
 
-	Text fpsText;
-	fpsText.setFont(font);
-	fpsText.setCharacterSize(16);
-	fpsText.setColor(Color::White);
+	vector<Enemy> enemiesVector;
+	vector<Arrow> arrowsVector;
+	vector<Tower> towersVector;
+	vector<Wall> wallsVector;
+
+	
 
 	float lastTime = 0;
 	float fpsTimer = 0;
@@ -36,16 +34,18 @@ void game(RenderWindow &window) {
 		float currentTime = clock.restart().asSeconds();
 		float fps = 1.f / (currentTime);
 		lastTime = currentTime;
+		time = time / 900;
+
+
+
 		Vector2f fpsPos(view.getCenter().x - 300, view.getCenter().y + 200);
 		if (fpsTimer > 100) {
 			fpsText.setString("FPS: " + std::to_string(fps));
 			fpsTimer = 0;
 		}
-		
-
 		fpsText.setPosition(fpsPos);
 
-		time = time / 900;
+		
 		clickTimer += time;
 		fpsTimer += time;
 
@@ -72,14 +72,8 @@ void game(RenderWindow &window) {
 			if (Keyboard::isKeyPressed(Keyboard::T)) {
 				int tx = pos.x / 50;
 				int ty = pos.y / 50;
-				if (map[tx][ty][1] == 0 && map[tx + 1][ty][1] == 0 && map[tx][ty + 1][1] == 0 && map[tx + 1][ty + 1][1] == 0) {
-					map[tx][ty][1] = 10;
-					map[tx + 1][ty][1] = 11;
-					map[tx][ty + 1][1] = 11;
-					map[tx + 1][ty + 1][1] = 11;
-					towersVector.push_back(Tower(Vector2f(tx * 50, ty * 50), 100, 10));
-				}
-
+				if (map[tx][ty][1] == 0 && map[tx + 1][ty][1] == 0 && map[tx][ty + 1][1] == 0 && map[tx + 1][ty + 1][1] == 0)
+					towersVector.push_back(Tower(Vector2f(tx * 50, ty * 50), 1000, 10));
 				clickTimer = 0;
 			}
 			if (Mouse::isButtonPressed(Mouse::Right)) {
@@ -100,15 +94,22 @@ void game(RenderWindow &window) {
 		for (auto i = enemiesVector.begin(); i != enemiesVector.end(); i++) {
 			for (auto j = arrowsVector.begin(); j != arrowsVector.end(); j++) {
 				if (i->rect.intersects(j->rect)) {
-					i->life -= 10;
+					i->health -= 10;
 					j->done = true;
 				}
 			}
-			if (i->rect.intersects(player.rect) && player.hurtTimer > 100 && i->attacTimer >50) {
-				player.health -= 15;
+			if (i->rect.intersects(player.rect) && player.hurtTimer > 100 && i->attacTimer >100) {
+				player.health -= i->damage;
 				player.hurtTimer = 0;
 				i->attacTimer = 0;
 			}
+			for (auto j = towersVector.begin(); j != towersVector.end(); j++) {
+				if (i->rect.intersects(j->rect) && j->hurtTimer > 300 && i->attacTimer > 100) {
+					j->health -= i->damage;
+					j->hurtTimer = 0;
+				}
+			}
+			
 		}
 
 
@@ -134,8 +135,15 @@ void game(RenderWindow &window) {
 		}
 		//deleting monsters
 		for (auto i = enemiesVector.begin(); i != enemiesVector.end(); i++) {
-			if (i->life <= 0 || i->life >1000) {
+			if (i->health <= 0 || i->health >1000) {
 				enemiesVector.erase(i);
+				break;
+			}
+		}
+		for (auto i = towersVector.begin(); i != towersVector.end(); i++) {
+			if (i->health <= 0) {
+				i->clearMap();
+				towersVector.erase(i);
 				break;
 			}
 		}

@@ -5,10 +5,11 @@ using namespace sf;
 
 class Enemy {
 public:
-	unsigned short life;
+	unsigned short health;
 	unsigned short damage;
 	float angle;
 	float attacTimer, hurtTimer;
+	float coef;
 	Vector2f pos;
 	Texture texture;
 	Sprite sprite;
@@ -18,7 +19,8 @@ public:
 	Enemy(Vector2f p, unsigned short hp, unsigned short dmg) {
 		attacTimer = 0;
 		hurtTimer = 0;
-		life = hp;
+		health = hp;
+		coef = 50.0/health;
 		pos = p;
 		damage = dmg;
 		sprite.setTexture(tilesetTexture);
@@ -26,7 +28,7 @@ public:
 		sprite.setOrigin(17, 17);
 		angle = 0;
 		isMove = true;
-		rect = IntRect(pos.x, pos.y, 34, 34);
+		rect = IntRect(pos.x-17, pos.y-17, 34, 34);
 	}
 	void move(Vector2f tar, float time) {
 		attacTimer += time;
@@ -69,7 +71,13 @@ public:
 		sprite.setRotation(rotation - 90);
 	}
 	void draw(RenderWindow &window) {
-		if(entityOnTheScreen(window, pos))
+		if (entityOnTheScreen(window, pos)) {
 			window.draw(sprite);
+			RectangleShape shape;
+			shape.setFillColor(Color::Green);
+			shape.setPosition(pos.x-17, pos.y + 10);
+			shape.setSize(Vector2f(health*coef, 2));
+			window.draw(shape);
+		}
 	}
 };

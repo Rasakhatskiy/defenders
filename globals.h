@@ -25,6 +25,7 @@ using std::cout;
 using std::cin;
 using std::endl;
 using std::string;
+using std::vector;
 
 const VideoMode _Mode1600x900_(1600, 900, 32);
 const VideoMode _Mode1280x720_(1280, 720, 32);
@@ -35,6 +36,8 @@ extern Texture tilesetTexture, arbaletTex, platformTex, playerTexture, enemyText
 extern Sprite grassSpr, tower1Spr, platformSpr, playerSpr, enemySpr, heartStoneSpr, wallSpr;
 extern Font font;
 extern View view;
+
+extern Text fpsText;
 
 
 extern unsigned short map[_MapSize_][_MapSize_][2];
