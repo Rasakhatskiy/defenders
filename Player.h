@@ -12,6 +12,7 @@ public:
 	float angle;
 	float damage;
 	float hurtTimer, attacTimer;
+	float speed = 0.2;
 	IntRect rect;
 	Player(Vector2f p) {
 		hurtTimer = 0;
@@ -30,19 +31,19 @@ public:
 		if (hurtTimer > 500) hurtTimer = 500;
 		if (Keyboard::isKeyPressed(Keyboard::W)) {
 			if(map[(int)(pos.x/50)][(int)((pos.y - 25) / 50)][1] == 0)
-				pos.y -= time / 10;
+				pos.y -= speed*time;
 		}
 		if (Keyboard::isKeyPressed(Keyboard::S)) {
 			if (map[(int)(pos.x / 50)][(int)((pos.y + 25) / 50)][1] == 0)
-				pos.y += time / 10;
+				pos.y += speed*time;
 		}
 		if (Keyboard::isKeyPressed(Keyboard::A)) {
 			if (map[(int)((pos.x -25)/ 50)][(int)(pos.y / 50)][1] == 0)
-				pos.x -= time / 10;
+				pos.x -= speed*time;
 		}
 		if (Keyboard::isKeyPressed(Keyboard::D)) {
 			if (map[(int)((pos.x +25) / 50)][(int)(pos.y / 50)][1] == 0)
-			pos.x += time / 10;
+			pos.x += speed*time;
 		}
 		sprite.setPosition(pos);
 	}

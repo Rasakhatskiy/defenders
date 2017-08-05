@@ -127,12 +127,7 @@ void game(RenderWindow &window) {
 		}
 
 
-		//moving & rotating monsters
-		//ya vas na origine vertel
-		for (auto i = enemiesVector.begin(); i != enemiesVector.end(); i++) {
-			i->move(Vector2f(ResStone.sprite.getPosition().x + 50, ResStone.sprite.getPosition().y + 50), time);
-			i->rotation(ResStone.sprite.getPosition());
-		}
+		
 		//deleting monsters
 		for (auto i = enemiesVector.begin(); i != enemiesVector.end(); i++) {
 			if (i->health <= 0 || i->health >1000) {
@@ -140,6 +135,7 @@ void game(RenderWindow &window) {
 				break;
 			}
 		}
+		//deleting towers
 		for (auto i = towersVector.begin(); i != towersVector.end(); i++) {
 			if (i->health <= 0) {
 				i->clearMap();
@@ -172,18 +168,29 @@ void game(RenderWindow &window) {
 		drawMap(window);
 
 
-
+		ResStone.draw(window);
 		/////////////////////////////////////////////////////////////////////////
 		//update & draw towers
 		for (auto i = towersVector.begin(); i != towersVector.end(); i++) {
 			i->update(window, time, enemiesVector, arrowsVector);
 		}
-
-		ResStone.draw(window);
-
+		//update & draw monsters
 		for (auto i = enemiesVector.begin(); i != enemiesVector.end(); i++) {
-			i->draw(window);
+			for (auto j = enemiesVector.begin(); j != enemiesVector.end(); j++) {
+				if (i == j)continue;
+				if (i->rect.intersects(j->rect)) {
+					j->collisionWithMobs(i->pos, time);
+				}
+			}
+			i->collisionWithMobs(player.pos, time);
 		}
+		for (auto i = enemiesVector.begin(); i != enemiesVector.end(); i++) {
+			Vector2f tar(Vector2f(ResStone.sprite.getPosition().x + 50, ResStone.sprite.getPosition().y + 50));
+			i->update(window, tar, time);
+		}
+		
+
+		
 		for (auto i = arrowsVector.begin(); i != arrowsVector.end(); i++) {
 			i->draw(window);
 		}

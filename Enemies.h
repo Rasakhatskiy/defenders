@@ -80,4 +80,34 @@ public:
 			window.draw(shape);
 		}
 	}
+	void update(RenderWindow &window, Vector2f tar, float time) {
+		move(tar, time);
+		rotation(tar);
+		draw(window);
+	}
+	void collisionWithMobs(Vector2f mob,float time) {
+		float distance = sqrt((mob.x - pos.x)*(mob.x - pos.x)
+			+ (mob.y - pos.y)*(mob.y - pos.y));
+		if (distance < 34) {//enemy diameter
+			float coefX = (mob.x - pos.x) / distance;
+			float coefY = (mob.y - pos.y) / distance;
+
+			if (coefX < 0) {
+				if (map[(int)((pos.x + 17) / 50)][(int)(pos.y / 50)][1] == 0)
+					pos.x -= 0.09*time*(mob.x - pos.x) / distance;
+			}
+			else {
+				if (map[(int)((pos.x - 17) / 50)][(int)(pos.y / 50)][1] == 0)
+					pos.x -= 0.09*time*(mob.x - pos.x) / distance;
+			}
+			if (coefY < 0) {
+				if (map[(int)(pos.x / 50)][(int)((pos.y + 17) / 50)][1] == 0)
+					pos.y -= 0.09*time*(mob.y - pos.y) / distance;
+			}
+			else {
+				if (map[(int)(pos.x / 50)][(int)((pos.y - 17) / 50)][1] == 0)
+					pos.y -= 0.09*time*(mob.y - pos.y) / distance;
+			}
+		}
+	}
 };
