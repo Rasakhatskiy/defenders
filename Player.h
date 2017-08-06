@@ -12,7 +12,7 @@ public:
 	float angle;
 	float damage;
 	float hurtTimer, attacTimer;
-	float speed = 0.2;
+	float speed = 0.4;
 	IntRect rect;
 	Player(Vector2f p) {
 		hurtTimer = 0;

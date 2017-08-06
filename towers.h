@@ -99,12 +99,33 @@ public:
 };
 
 class Wall {
+public:
 	short health;
-	Vector2i pos;
-
-	Wall(Vector2i p, short h/*, short typo*/) {
+	Vector2f pos;
+	Vector2i posOnMap;
+	IntRect rect;
+	float coef;
+	Wall(Vector2f p, short h/*, short typo*/) {
 		health = h;
 		pos = p;
-		map[pos.x][pos.y][1] = 1;
+		posOnMap = Vector2i(pos.x / 50, pos.y / 50);
+		pos = Vector2f(posOnMap.x * 50, posOnMap.y * 50);
+		map[posOnMap.x][posOnMap.y][1] = 1;
+		rect = IntRect(pos.x, pos.y, 50, 50);
+		coef = 45.0 / health;
+	}
+	void clearMap() {
+		map[posOnMap.x][posOnMap.y][1] = 0;
+	}
+	void draw(RenderWindow &window) {
+		if (entityOnTheScreen(window, pos)) {
+			//wallSpr.setPosition(pos);
+			//window.draw(wallSpr);
+			RectangleShape shape;
+			shape.setFillColor(Color::Green);
+			shape.setPosition(pos.x, pos.y + 45);
+			shape.setSize(Vector2f(coef*health, 2));
+			window.draw(shape);
+		}
 	}
 };

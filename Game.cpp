@@ -27,7 +27,7 @@ void game(RenderWindow &window) {
 	float lastTime = 0;
 	float fpsTimer = 0;
 	while (window.isOpen()) {
-		window.clear();
+		
 		float time = clock.getElapsedTime().asMicroseconds();
 		//clock.restart();
 
@@ -56,9 +56,35 @@ void game(RenderWindow &window) {
 		//cursor
 		Vector2f pos = window.mapPixelToCoords(pixelPos);
 
+		//view
+		{
+			Vector2f viewPos = player.pos;
+			//left side
+			if (player.pos.x <= window.getSize().x / 2) {
+				viewPos.x = window.getSize().x / 2;
+			}
+			//top side
+			if (player.pos.y <= window.getSize().y / 2) {
+				viewPos.y = window.getSize().y / 2;
+			}
+			//right side
+			if (player.pos.x >= _MapSize_ * 50 - window.getSize().x / 2) {
+				viewPos.x = _MapSize_ * 50 - window.getSize().x / 2;
+			}
+			//bottom side
+			if (player.pos.y >= _MapSize_ * 50 - window.getSize().y / 2) {
+				viewPos.y = _MapSize_ * 50 - window.getSize().y / 2;
+			}
+			view.setCenter(viewPos);
+			//accept the view
+			window.setView(view);
+		}
+		window.clear();
+		drawMap(window);
+
 		if (clickTimer > 200) {
 			if (Keyboard::isKeyPressed(Keyboard::Q)) {
-				map[(int)(pos.x / 50)][(int)(pos.y / 50)][1] = 1;
+				wallsVector.push_back(Wall(Vector2f(pos.x, pos.y), 1000));
 				clickTimer = 0;
 			}
 
@@ -92,24 +118,34 @@ void game(RenderWindow &window) {
 
 		//intersects with bullets
 		for (auto i = enemiesVector.begin(); i != enemiesVector.end(); i++) {
+			//Arrows
 			for (auto j = arrowsVector.begin(); j != arrowsVector.end(); j++) {
 				if (i->rect.intersects(j->rect)) {
 					i->health -= 10;
 					j->done = true;
 				}
 			}
+			//player
 			if (i->rect.intersects(player.rect) && player.hurtTimer > 100 && i->attacTimer >100) {
 				player.health -= i->damage;
 				player.hurtTimer = 0;
 				i->attacTimer = 0;
 			}
+			//towers
 			for (auto j = towersVector.begin(); j != towersVector.end(); j++) {
 				if (i->rect.intersects(j->rect) && j->hurtTimer > 300 && i->attacTimer > 100) {
 					j->health -= i->damage;
 					j->hurtTimer = 0;
 				}
 			}
-			
+			//walls
+			for (auto j = wallsVector.begin(); j != wallsVector.end(); j++) {
+				if (i->rect.intersects(j->rect)  && i->attacTimer > 100) {
+					j->health -= i->damage;
+					j->draw(window);
+					i->attacTimer = 0;
+				}
+			}
 		}
 
 
@@ -125,9 +161,6 @@ void game(RenderWindow &window) {
 				break;
 			}
 		}
-
-
-		
 		//deleting monsters
 		for (auto i = enemiesVector.begin(); i != enemiesVector.end(); i++) {
 			if (i->health <= 0 || i->health >1000) {
@@ -143,62 +176,64 @@ void game(RenderWindow &window) {
 				break;
 			}
 		}
-
+		//deleting walls
+		for (auto i = wallsVector.begin(); i != wallsVector.end(); i++) {
+			if (i->health <= 0) {
+				i->clearMap();
+				wallsVector.erase(i);
+				break;
+			}
+		}
+		
 		player.update(time, pos);
 		//VIEW
-		if (player.pos.x <= 640 && player.pos.y <= 360) {
-			view.setCenter(640, 360);
-		}
-		else {
-			if (player.pos.x <= 640) {
-				view.setCenter(640, player.pos.y);
-			}
-			else
-				if (player.pos.y <= 360) {
-					view.setCenter(player.pos.x, 360);
-				}
-				else {
-					view.setCenter(player.pos);
-				}
-		}
+		
+		
+		
+		
+		
 
-
-		window.setView(view);
-
-		drawMap(window);
-
-
+		//to do
 		ResStone.draw(window);
 		/////////////////////////////////////////////////////////////////////////
 		//update & draw towers
 		for (auto i = towersVector.begin(); i != towersVector.end(); i++) {
 			i->update(window, time, enemiesVector, arrowsVector);
 		}
+		//////////////////////////////////////////////////////////////////////////
 		//update & draw monsters
 		for (auto i = enemiesVector.begin(); i != enemiesVector.end(); i++) {
 			for (auto j = enemiesVector.begin(); j != enemiesVector.end(); j++) {
+				//the same monster
 				if (i == j)continue;
 				if (i->rect.intersects(j->rect)) {
+					//collision with other monsters
 					j->collisionWithMobs(i->pos, time);
 				}
 			}
+			//collision with player
 			i->collisionWithMobs(player.pos, time);
-		}
-		for (auto i = enemiesVector.begin(); i != enemiesVector.end(); i++) {
+			//TO DO
 			Vector2f tar(Vector2f(ResStone.sprite.getPosition().x + 50, ResStone.sprite.getPosition().y + 50));
 			i->update(window, tar, time);
 		}
-		
-
-		
+		///////////////////////////////////////////////////////////////////////////////////
+		//draw walls
+		/*for (auto i = wallsVector.begin(); i != wallsVector.end(); i++) {
+			i->draw(window);
+		}*/
+		///////////////////////////////////////////////////////////////////////////////////////
+		//draw arrows
 		for (auto i = arrowsVector.begin(); i != arrowsVector.end(); i++) {
 			i->draw(window);
 		}
-
+		////////////////////////////////////////////////////////////////////////////////////////
+		//FPS text
 		window.draw(fpsText);
-
+		//Player
 		window.draw(player.sprite);
 		bar.draw(window, player.health);
+
 		window.display();
 	}
 }
@@ -216,12 +251,7 @@ void setMap() {
 void drawMap(RenderWindow &window) {
 	long counter = 0;
 	Sprite t, empty;
-	//IntRect r;
 	Vector2f center = window.getView().getCenter();
-	/*IntRect rect(center.x - window.getSize().x / 2,
-		center.y - window.getSize().y / 2,
-		window.getSize().x,
-		window.getSize().y);*/
 	int p1 = ((center.x - window.getSize().x / 2) / 50) - 1,
 		p2 = ((center.y - window.getSize().y / 2) / 50) - 1,
 		p3 = ((center.x + window.getSize().x / 2) / 50) + 1,
@@ -239,13 +269,8 @@ void drawMap(RenderWindow &window) {
 			else {
 				t = empty;
 			}
-			
 			t.setPosition(i * 50, j * 50);
 			window.draw(t);
-		}
-	}
-	for (int i = p1; i < p3; i++) {
-		for (int j = p2; j < p4; j++) {
 			if (map[i][j][1] == 1) {
 				t = wallSpr;
 			}
@@ -256,5 +281,4 @@ void drawMap(RenderWindow &window) {
 			window.draw(t);
 		}
 	}
-	//cout << counter << endl;
 }

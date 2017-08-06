@@ -20,21 +20,29 @@ d:\prog\defenders\towers.h(38): warning C4244: =: преобразование "
 d:\prog\defenders\towers.h(39): warning C4244: =: преобразование "float" в "int", возможна потеря данных
 d:\prog\defenders\towers.h(54): warning C4244: =: преобразование "double" в "float", возможна потеря данных
 d:\prog\defenders\towers.h(73): warning C4305: инициализация: усечение из "int" в "float"
+d:\prog\defenders\towers.h(111): warning C4244: аргумент: преобразование "float" в "int", возможна потеря данных
+d:\prog\defenders\towers.h(112): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+d:\prog\defenders\towers.h(114): warning C4244: аргумент: преобразование "float" в "int", возможна потеря данных
+d:\prog\defenders\towers.h(115): warning C4244: =: преобразование "double" в "float", возможна потеря данных
 d:\prog\defenders\player.h(15): warning C4305: инициализация: усечение из "double" в "float"
 d:\prog\defenders\player.h(53): warning C4244: =: преобразование "double" в "float", возможна потеря данных
 d:\prog\defenders\player.h(56): warning C4244: аргумент: преобразование "float" в "int", возможна потеря данных
 d:\prog\defenders\gui.h(15): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
 d:\prog\defenders\gui.h(31): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
 d:\prog\defenders\game.cpp(31): warning C4244: инициализация: преобразование "sf::Int64" в "float", возможна потеря данных
-d:\prog\defenders\game.cpp(73): warning C4244: инициализация: преобразование "float" в "int", возможна потеря данных
-d:\prog\defenders\game.cpp(74): warning C4244: инициализация: преобразование "float" в "int", возможна потеря данных
-d:\prog\defenders\game.cpp(76): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
-d:\prog\defenders\game.cpp(225): warning C4244: инициализация: преобразование "float" в "int", возможна потеря данных
-d:\prog\defenders\game.cpp(226): warning C4244: инициализация: преобразование "float" в "int", возможна потеря данных
-d:\prog\defenders\game.cpp(227): warning C4244: инициализация: преобразование "float" в "int", возможна потеря данных
-d:\prog\defenders\game.cpp(228): warning C4244: инициализация: преобразование "float" в "int", возможна потеря данных
-d:\prog\defenders\game.cpp(243): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
-d:\prog\defenders\game.cpp(255): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+d:\prog\defenders\game.cpp(64): warning C4244: =: преобразование "unsigned int" в "float", возможна потеря данных
+d:\prog\defenders\game.cpp(68): warning C4244: =: преобразование "unsigned int" в "float", возможна потеря данных
+d:\prog\defenders\game.cpp(72): warning C4244: =: преобразование "unsigned int" в "float", возможна потеря данных
+d:\prog\defenders\game.cpp(76): warning C4244: =: преобразование "unsigned int" в "float", возможна потеря данных
+d:\prog\defenders\game.cpp(99): warning C4244: инициализация: преобразование "float" в "int", возможна потеря данных
+d:\prog\defenders\game.cpp(100): warning C4244: инициализация: преобразование "float" в "int", возможна потеря данных
+d:\prog\defenders\game.cpp(102): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+d:\prog\defenders\game.cpp(255): warning C4244: инициализация: преобразование "float" в "int", возможна потеря данных
+d:\prog\defenders\game.cpp(256): warning C4244: инициализация: преобразование "float" в "int", возможна потеря данных
+d:\prog\defenders\game.cpp(257): warning C4244: инициализация: преобразование "float" в "int", возможна потеря данных
+d:\prog\defenders\game.cpp(258): warning C4244: инициализация: преобразование "float" в "int", возможна потеря данных
+d:\prog\defenders\game.cpp(272): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+d:\prog\defenders\game.cpp(280): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
   Создание кода...
   Пропуск... (изменения не обнаружены)
   main.cpp
