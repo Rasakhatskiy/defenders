@@ -29,24 +29,19 @@ d:\prog\defenders\player.h(53): warning C4244: =: преобразование "
 d:\prog\defenders\player.h(56): warning C4244: аргумент: преобразование "float" в "int", возможна потеря данных
 d:\prog\defenders\gui.h(15): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
 d:\prog\defenders\gui.h(31): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
-d:\prog\defenders\game.cpp(31): warning C4244: инициализация: преобразование "sf::Int64" в "float", возможна потеря данных
-d:\prog\defenders\game.cpp(64): warning C4244: =: преобразование "unsigned int" в "float", возможна потеря данных
-d:\prog\defenders\game.cpp(68): warning C4244: =: преобразование "unsigned int" в "float", возможна потеря данных
-d:\prog\defenders\game.cpp(72): warning C4244: =: преобразование "unsigned int" в "float", возможна потеря данных
-d:\prog\defenders\game.cpp(76): warning C4244: =: преобразование "unsigned int" в "float", возможна потеря данных
-d:\prog\defenders\game.cpp(99): warning C4244: инициализация: преобразование "float" в "int", возможна потеря данных
-d:\prog\defenders\game.cpp(100): warning C4244: инициализация: преобразование "float" в "int", возможна потеря данных
-d:\prog\defenders\game.cpp(102): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
-d:\prog\defenders\game.cpp(255): warning C4244: инициализация: преобразование "float" в "int", возможна потеря данных
-d:\prog\defenders\game.cpp(256): warning C4244: инициализация: преобразование "float" в "int", возможна потеря данных
-d:\prog\defenders\game.cpp(257): warning C4244: инициализация: преобразование "float" в "int", возможна потеря данных
-d:\prog\defenders\game.cpp(258): warning C4244: инициализация: преобразование "float" в "int", возможна потеря данных
-d:\prog\defenders\game.cpp(272): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
-d:\prog\defenders\game.cpp(280): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
-  Создание кода...
-  Пропуск... (изменения не обнаружены)
-  main.cpp
-  globals.cpp
-  Menu.cpp
+d:\prog\defenders\game.cpp(32): warning C4244: инициализация: преобразование "sf::Int64" в "float", возможна потеря данных
+d:\prog\defenders\game.cpp(66): warning C4244: =: преобразование "unsigned int" в "float", возможна потеря данных
+d:\prog\defenders\game.cpp(70): warning C4244: =: преобразование "unsigned int" в "float", возможна потеря данных
+d:\prog\defenders\game.cpp(74): warning C4244: =: преобразование "unsigned int" в "float", возможна потеря данных
+d:\prog\defenders\game.cpp(78): warning C4244: =: преобразование "unsigned int" в "float", возможна потеря данных
+d:\prog\defenders\game.cpp(101): warning C4244: инициализация: преобразование "float" в "int", возможна потеря данных
+d:\prog\defenders\game.cpp(102): warning C4244: инициализация: преобразование "float" в "int", возможна потеря данных
+d:\prog\defenders\game.cpp(104): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+d:\prog\defenders\game.cpp(284): warning C4244: инициализация: преобразование "float" в "int", возможна потеря данных
+d:\prog\defenders\game.cpp(285): warning C4244: инициализация: преобразование "float" в "int", возможна потеря данных
+d:\prog\defenders\game.cpp(286): warning C4244: инициализация: преобразование "float" в "int", возможна потеря данных
+d:\prog\defenders\game.cpp(287): warning C4244: инициализация: преобразование "float" в "int", возможна потеря данных
+d:\prog\defenders\game.cpp(301): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+d:\prog\defenders\game.cpp(309): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
   Defenders.vcxproj -> D:\prog\Debug\Defenders.exe
   Defenders.vcxproj -> D:\prog\Debug\Defenders.pdb (Partial PDB)

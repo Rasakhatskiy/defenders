@@ -10,6 +10,7 @@ void game(RenderWindow &window) {
 	Clock clock;
 	float angle = 0;
 	float clickTimer = 0;
+	float spawnMonsterTimer = 0;
 
 	loadTextures();
 	setMap();
@@ -48,10 +49,11 @@ void game(RenderWindow &window) {
 		
 		clickTimer += time;
 		fpsTimer += time;
+		spawnMonsterTimer += time;
 
 		if (fpsTimer > 1000) fpsTimer = 1000;
 		if (clickTimer > 1000) clickTimer = 1000;
-
+		if (spawnMonsterTimer > 5000) spawnMonsterTimer = 5000;
 		Vector2i pixelPos = Mouse::getPosition(window);
 		//cursor
 		Vector2f pos = window.mapPixelToCoords(pixelPos);
@@ -108,6 +110,15 @@ void game(RenderWindow &window) {
 			}
 		}
 
+		if (spawnMonsterTimer > 1000) {
+			int tx, ty;
+			tx = rand() % 1000 - 500;
+			ty = rand() % 1000 - 500;
+			if (map[(int)((tx + player.pos.x) / 50)][(int)((ty + player.pos.y) / 50)][1] == 0) {
+				enemiesVector.push_back(Enemy(Vector2f(tx + player.pos.x, ty + player.pos.y), 100, 10));
+				spawnMonsterTimer = 0;
+			}
+		}
 
 		sf::Event Event;
 		while (window.pollEvent(Event)) {
@@ -116,7 +127,7 @@ void game(RenderWindow &window) {
 		}
 
 
-		//intersects with bullets
+		//intersects with enemies
 		for (auto i = enemiesVector.begin(); i != enemiesVector.end(); i++) {
 			//Arrows
 			for (auto j = arrowsVector.begin(); j != arrowsVector.end(); j++) {
@@ -137,6 +148,11 @@ void game(RenderWindow &window) {
 					j->health -= i->damage;
 					j->hurtTimer = 0;
 				}
+				if (j->health <= 0) {
+					j->clearMap();
+					towersVector.erase(j);
+					break;
+				}
 			}
 			//walls
 			for (auto j = wallsVector.begin(); j != wallsVector.end(); j++) {
@@ -145,6 +161,15 @@ void game(RenderWindow &window) {
 					j->draw(window);
 					i->attacTimer = 0;
 				}
+				if (j->health <= 0) {
+					j->clearMap();
+					wallsVector.erase(j);
+					break;
+				}
+			}
+			if (i->health <= 0 || i->health >1000) {
+				enemiesVector.erase(i);
+				break;
 			}
 		}
 
@@ -153,37 +178,41 @@ void game(RenderWindow &window) {
 		//moving arrows
 		for (auto i = arrowsVector.begin(); i != arrowsVector.end(); i++) {
 			i->move(time);
-		}
-		//deleting arrows
-		for (auto i = arrowsVector.begin(); i != arrowsVector.end(); i++) {
 			if (i->done) {
 				arrowsVector.erase(i);
 				break;
 			}
 		}
+		//deleting arrows
+		/*for (auto i = arrowsVector.begin(); i != arrowsVector.end(); i++) {
+			if (i->done) {
+				arrowsVector.erase(i);
+				break;
+			}
+		}*/
 		//deleting monsters
-		for (auto i = enemiesVector.begin(); i != enemiesVector.end(); i++) {
+		/*for (auto i = enemiesVector.begin(); i != enemiesVector.end(); i++) {
 			if (i->health <= 0 || i->health >1000) {
 				enemiesVector.erase(i);
 				break;
 			}
-		}
+		}*/
 		//deleting towers
-		for (auto i = towersVector.begin(); i != towersVector.end(); i++) {
+		/*for (auto i = towersVector.begin(); i != towersVector.end(); i++) {
 			if (i->health <= 0) {
 				i->clearMap();
 				towersVector.erase(i);
 				break;
 			}
-		}
+		}*/
 		//deleting walls
-		for (auto i = wallsVector.begin(); i != wallsVector.end(); i++) {
+		/*for (auto i = wallsVector.begin(); i != wallsVector.end(); i++) {
 			if (i->health <= 0) {
 				i->clearMap();
 				wallsVector.erase(i);
 				break;
 			}
-		}
+		}*/
 		
 		player.update(time, pos);
 		//VIEW
