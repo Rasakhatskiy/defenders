@@ -33,7 +33,9 @@ const short _MapSize_ = 100;
 const short _TileMapSize_ = 50;
 
 extern Texture tilesetTexture, arbaletTex;
-extern Sprite grassSpr, platformSpr, playerSpr, enemySpr, heartStoneSpr, wallSpr;
+extern Sprite grassSpr, platformSpr, heartStoneSpr, wallSpr,
+playerSpr, enemySpr,
+axeSprite;
 extern Font font;
 extern View view;
 

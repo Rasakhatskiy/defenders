@@ -5,7 +5,8 @@
 using namespace sf;
 
 Texture tilesetTexture, arbaletTex;
-Sprite grassSpr, platformSpr, playerSpr, enemySpr, heartStoneSpr, wallSpr;
+Sprite grassSpr, platformSpr, playerSpr, enemySpr, heartStoneSpr, wallSpr,
+axeSprite;
 Font font;
 View view;
 Text fpsText;
@@ -17,7 +18,6 @@ void loadTextures() {
 	view.reset(sf::FloatRect(100, 100, 1280, 720));
 	tilesetTexture.loadFromFile("res/defenders-tiles.png");
 	arbaletTex.loadFromFile("res/arbalet.png");
-
 
 	grassSpr.setTexture(tilesetTexture);
 	grassSpr.setTextureRect(IntRect(50, 200, 50, 50));
@@ -41,6 +41,10 @@ void loadTextures() {
 	fpsText.setFont(font);
 	fpsText.setCharacterSize(16);
 	fpsText.setColor(Color::White);
+
+	axeSprite.setTexture(tilesetTexture);
+	axeSprite.setTextureRect(IntRect(167, 12, 69, 15));
+	axeSprite.setOrigin(25, -24);
 }
 void setView(RenderWindow &window, Vector2f pos) {
 	Vector2f viewPos = pos;

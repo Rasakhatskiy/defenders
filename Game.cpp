@@ -84,9 +84,13 @@ void game(RenderWindow &window) {
 				enemiesVector.push_back(Enemy(pos, 100, 10));
 				clickTimer = 0;
 			}
+			if (Mouse::isButtonPressed(Mouse::Left)) {
+				player.attac();
+				clickTimer = 0;
+			}
 		}
 
-		if (spawnMonsterTimer > 1000) {
+		if (spawnMonsterTimer > 4000) {
 			int tx, ty;
 			tx = rand() % 1000 - 500;
 			ty = rand() % 1000 - 500;
@@ -102,6 +106,17 @@ void game(RenderWindow &window) {
 				window.close();
 		}
 
+		axeSprite.setPosition(player.pos);
+		axeSprite.setRotation(player.angle);
+
+		////////////////////////////////////////////////////////////////////////////////////////
+		RectangleShape DebugShape;
+		DebugShape.setFillColor(Color::Red);
+		DebugShape.setOrigin(25-69, -24);
+		DebugShape.setSize(Vector2f(15, 15));
+		DebugShape.setRotation(player.sprite.getRotation());
+		DebugShape.setPosition(axeSprite.getPosition().x, axeSprite.getPosition().y);
+		////////////////////////////////////////////////////////////////////////////////////////
 
 		//intersects with enemies
 		for (auto i = enemiesVector.begin(); i != enemiesVector.end(); i++) {
@@ -124,6 +139,13 @@ void game(RenderWindow &window) {
 				if (i->rect.intersects(j->rect)) {
 					i->health -= 10;
 					j->done = true;
+				}
+			}
+			//weapon
+			if (i->rect.intersects(IntRect(DebugShape.getGlobalBounds()))) {
+				if (i->hurtTimer > 100 && player.attacTimer < 500) {
+					i->health -= player.damage;
+					i->hurtTimer = 0;
 				}
 			}
 			//player
@@ -185,9 +207,10 @@ void game(RenderWindow &window) {
 		//Player
 		player.update(time, pos);
 		window.draw(player.sprite);
+		window.draw(axeSprite);
 		//Bar
 		bar.draw(window, player.health);
-
+		window.draw(DebugShape);
 		window.display();
 	}
 }
