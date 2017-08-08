@@ -39,3 +39,5 @@ public:
 		window.draw(sprite);
 	}
 };
+
+extern vector<Arrow> arrowsVector;

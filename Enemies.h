@@ -111,3 +111,4 @@ public:
 		}
 	}
 };
+extern vector<Enemy> enemiesVector;

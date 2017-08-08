@@ -32,18 +32,19 @@ const VideoMode _Mode1280x720_(1280, 720, 32);
 const short _MapSize_ = 100;
 const short _TileMapSize_ = 50;
 
-extern Texture tilesetTexture, arbaletTex, platformTex, playerTexture, enemyTexture;
-extern Sprite grassSpr, tower1Spr, platformSpr, playerSpr, enemySpr, heartStoneSpr, wallSpr;
+extern Texture tilesetTexture, arbaletTex;
+extern Sprite grassSpr, platformSpr, playerSpr, enemySpr, heartStoneSpr, wallSpr;
 extern Font font;
 extern View view;
 
 extern Text fpsText;
 
-
 extern unsigned short map[_MapSize_][_MapSize_][2];
+
 void menu(RenderWindow &window);
 void loadTextures();
 void game(RenderWindow &window);
 void drawMap(RenderWindow &window);
 void setMap();
+void setView(RenderWindow &window, Vector2f pos);
 bool entityOnTheScreen(RenderWindow &window, Vector2f pos);

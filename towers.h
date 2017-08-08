@@ -129,3 +129,6 @@ public:
 		}
 	}
 };
+
+extern vector<Tower> towersVector;
+extern vector<Wall> wallsVector;
