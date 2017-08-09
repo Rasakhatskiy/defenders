@@ -13,22 +13,26 @@ public:
 	Vector2f pos;
 	Texture texture;
 	Sprite sprite;
-	IntRect rect;
+	FloatRect rect;
 	bool isMove;
 
 	Enemy(Vector2f p, unsigned short hp, unsigned short dmg) {
 		attacTimer = 0;
 		hurtTimer = 0;
+		angle = 0;
 		health = hp;
-		coef = 50.0/health;
 		pos = p;
 		damage = dmg;
+
+		coef = 50.0 / health;
+
 		sprite.setTexture(tilesetTexture);
 		sprite.setTextureRect(IntRect(17,17,34,34));
 		sprite.setOrigin(17, 17);
-		angle = 0;
+
+		
 		isMove = true;
-		rect = IntRect(pos.x-17, pos.y-17, 34, 34);
+		rect = sprite.getGlobalBounds();
 	}
 	void move(Vector2f tar, float time) {
 		attacTimer += time;
@@ -61,7 +65,8 @@ public:
 				}	
 			}
 		}
-		rect = IntRect(pos.x, pos.y, 34, 34);
+		rect = sprite.getGlobalBounds();
+
 		sprite.setPosition(pos);
 	}
 	void rotation(Vector2f tar) {

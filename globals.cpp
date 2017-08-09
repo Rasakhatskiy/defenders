@@ -44,7 +44,7 @@ void loadTextures() {
 
 	axeSprite.setTexture(tilesetTexture);
 	axeSprite.setTextureRect(IntRect(167, 12, 69, 15));
-	axeSprite.setOrigin(25, -24);
+	axeSprite.setOrigin(50, -24);
 }
 void setView(RenderWindow &window, Vector2f pos) {
 	Vector2f viewPos = pos;

@@ -14,7 +14,7 @@ public:
 	float hurtTimer, attacTimer;
 	float speed = 0.4;
 	float bonus_angle;
-	IntRect rect;
+	FloatRect rect;
 	Player(Vector2f p) {
 		damage = 10;
 		hurtTimer = 0;
@@ -50,9 +50,9 @@ public:
 		float dX = mouse.x - pos.x;
 		float dY = mouse.y - pos.y;
 		angle = (atan2(dY, dX)) * 180 / 3.14159265;
-		//angle -= 90;
+		angle += 180;
 		
-		rect = IntRect(pos.x, pos.y, 25, 25);
+		rect = sprite.getGlobalBounds();
 	}
 	void update(float time, Vector2f mouse) {
 		move(time);
@@ -66,11 +66,13 @@ public:
 			pos = ressurectPosition;
 		}
 		
-		if (attacTimer > 0 && attacTimer < 250) {
-			bonus_angle +=5;
-		}
 		if (attacTimer > 250 && attacTimer < 500) {
-			bonus_angle -=5;
+			if(bonus_angle <= 90)
+				bonus_angle +=5;
+		}
+		if (attacTimer > 0 && attacTimer < 250) {
+			if (bonus_angle >= 0)
+				bonus_angle -=5;
 		}
 		angle += bonus_angle;
 		sprite.setRotation(angle);

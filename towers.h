@@ -12,7 +12,7 @@ public:
 	short damage;
 	Sprite sprite;
 	Vector2f pos;
-	IntRect rect;
+	FloatRect rect;
 	float angle;
 	float timer;
 	float coef;
@@ -33,7 +33,7 @@ public:
 		sprite.setTexture(arbaletTex);
 		sprite.setPosition(pos);
 		sprite.setOrigin(60, 60);
-		rect = IntRect(pos.x-50, pos.y-50, 100, 100);
+		rect = sprite.getGlobalBounds();
 		
 		posOnMapX = (pos.x-50) / 50;
 		posOnMapY = (pos.y-50) / 50;
@@ -103,7 +103,7 @@ public:
 	short health;
 	Vector2f pos;
 	Vector2i posOnMap;
-	IntRect rect;
+	FloatRect rect;
 	float coef;
 	Wall(Vector2f p, short h/*, short typo*/) {
 		health = h;
@@ -111,7 +111,7 @@ public:
 		posOnMap = Vector2i(pos.x / 50, pos.y / 50);
 		pos = Vector2f(posOnMap.x * 50, posOnMap.y * 50);
 		map[posOnMap.x][posOnMap.y][1] = 1;
-		rect = IntRect(pos.x, pos.y, 50, 50);
+		rect = FloatRect(pos.x, pos.y, 50, 50);
 		coef = 45.0 / health;
 	}
 	void clearMap() {

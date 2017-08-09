@@ -4,7 +4,7 @@
 class Arrow {
 public:
 	Vector2f pos, tar, coef;
-	IntRect rect;
+	FloatRect rect;
 	float speed, lifetimer;
 	Sprite sprite;
 	bool done;
@@ -17,7 +17,7 @@ public:
 		sprite.setOrigin(4, 21);
 		sprite.setRotation(r);
 		done = false;
-		rect = IntRect(pos.x, pos.y, 11, 26);
+		rect = sprite.getGlobalBounds();
 		lifetimer = 5000;
 
 		float distance = sqrt((tar.x - pos.x)*(tar.x - pos.x) + (tar.y - pos.y)*(tar.y - pos.y));
@@ -32,7 +32,7 @@ public:
 		if (lifetimer <= 0) {
 			done = true;
 		}
-		rect = IntRect(pos.x, pos.y, 8, 21);
+		rect = sprite.getGlobalBounds();
 		sprite.setPosition(pos);
 	}
 	void draw(RenderWindow &window) {

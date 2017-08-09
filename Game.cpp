@@ -10,7 +10,7 @@ void game(RenderWindow &window) {
 	setMap();
 
 	Clock clock;
-	RessurectStone ResStone;
+	RessurectStone ResStone(Vector2f(25*50,25*50));
 	Player player(Vector2f(ResStone.sprite.getPosition().x + 100, ResStone.sprite.getPosition().y + 100));
 	healthBar bar(1000);
 	
@@ -66,7 +66,9 @@ void game(RenderWindow &window) {
 				clickTimer = 0;
 			}
 
-
+			if (Keyboard::isKeyPressed(Keyboard::R)) {
+				player.rotation(pos);
+			}
 			if (Keyboard::isKeyPressed(Keyboard::P)) {
 				player.health+=5;
 			}
@@ -112,8 +114,8 @@ void game(RenderWindow &window) {
 		////////////////////////////////////////////////////////////////////////////////////////
 		RectangleShape DebugShape;
 		DebugShape.setFillColor(Color::Red);
-		DebugShape.setOrigin(25-69, -24);
-		DebugShape.setSize(Vector2f(15, 15));
+		DebugShape.setOrigin(50, -24);
+		DebugShape.setSize(Vector2f(20, 20));
 		DebugShape.setRotation(player.sprite.getRotation());
 		DebugShape.setPosition(axeSprite.getPosition().x, axeSprite.getPosition().y);
 		////////////////////////////////////////////////////////////////////////////////////////
@@ -142,14 +144,14 @@ void game(RenderWindow &window) {
 				}
 			}
 			//weapon
-			if (i->rect.intersects(IntRect(DebugShape.getGlobalBounds()))) {
+			if (i->rect.intersects(DebugShape.getGlobalBounds())) {
 				if (i->hurtTimer > 100 && player.attacTimer < 500) {
 					i->health -= player.damage;
 					i->hurtTimer = 0;
 				}
 			}
 			//player
-			if (i->rect.intersects(player.rect)) {
+			if (i->rect.contains(player.pos)) {
 				i->collisionWithMobs(player.pos, time);
 				if (player.hurtTimer > 100 && i->attacTimer > 100) {
 					player.health -= i->damage;
@@ -182,12 +184,24 @@ void game(RenderWindow &window) {
 					break;
 				}
 			}
+			//ressurect stone
+			if (i->rect.intersects(ResStone.sprite.getGlobalBounds()) ){
+				if (ResStone.hurtTimer > 200) {
+					ResStone.health -= i->damage;
+					ResStone.hurtTimer = 0;
+				}
+				
+				if (ResStone.health <= 0) {
+					//todo
+				}
+			}
 			//updating
 			Vector2f tar(Vector2f(ResStone.sprite.getPosition().x + 50, ResStone.sprite.getPosition().y + 50));
 			i->update(window, tar, time);
 		}
 
 		//to do
+		ResStone.update(time);
 		ResStone.draw(window);
 		//update & draw towers
 		for (auto i = towersVector.begin(); i != towersVector.end(); i++) {
@@ -210,7 +224,7 @@ void game(RenderWindow &window) {
 		window.draw(axeSprite);
 		//Bar
 		bar.draw(window, player.health);
-		window.draw(DebugShape);
+		//window.draw(DebugShape);
 		window.display();
 	}
 }

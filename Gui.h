@@ -43,3 +43,15 @@ bool entityOnTheScreen(RenderWindow &window, Vector2f pos) {
 		return true;
 	else return false;
 }
+
+/*class Rectangle {
+private:
+	Vector2f p1, p2, p3, p4;
+public:
+	Rectangle(float a, float b, float w, float h, float an) {
+		p1 = Vector2f(a, b);
+		p2 = Vector2f(a+w, b);
+		p3 = Vector2f(a+w, b+h);
+		p4 = Vector2f(a, b+h);
+	}
+};*/
