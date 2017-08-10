@@ -18,6 +18,7 @@ void game(RenderWindow &window) {
 	vector<Wall> wallsVector;
 	vector<Arrow> arrowsVector;
 	vector<Enemy> enemiesVector;
+	circleMenu cMenu;
 
 	float angle = 0;
 	float clickTimer = 0;
@@ -91,6 +92,8 @@ void game(RenderWindow &window) {
 				clickTimer = 0;
 			}
 		}
+
+		
 
 		if (spawnMonsterTimer > 4000) {
 			int tx, ty;
@@ -224,7 +227,9 @@ void game(RenderWindow &window) {
 		window.draw(axeSprite);
 		//Bar
 		bar.draw(window, player.health);
-		//window.draw(DebugShape);
+		if (Keyboard::isKeyPressed(Keyboard::Tab)) {
+			cMenu.choose(window, pos);
+		}
 		window.display();
 	}
 }

@@ -4,8 +4,8 @@
 #include "Bullets.h"
 using namespace sf;
 
-Texture tilesetTexture, arbaletTex;
-Sprite grassSpr, platformSpr, playerSpr, enemySpr, heartStoneSpr, wallSpr,
+Texture tilesetTexture, arbaletTex, menuTex;
+Sprite grassSpr, platformSpr, playerSpr, enemySpr, heartStoneSpr, wallSpr, menuSpr,
 axeSprite;
 Font font;
 View view;
@@ -45,6 +45,10 @@ void loadTextures() {
 	axeSprite.setTexture(tilesetTexture);
 	axeSprite.setTextureRect(IntRect(167, 12, 69, 15));
 	axeSprite.setOrigin(50, -24);
+
+	menuTex.loadFromFile("res/menu.png");
+	menuSpr.setTexture(menuTex);
+	menuSpr.setOrigin(300, 300);
 }
 void setView(RenderWindow &window, Vector2f pos) {
 	Vector2f viewPos = pos;

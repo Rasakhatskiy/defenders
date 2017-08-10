@@ -23,10 +23,11 @@ d:\prog\defenders\player.h(52): warning C4244: =: преобразование "
 d:\prog\defenders\ressurectstone.h(15): warning C4244: =: преобразование "double" в "float", возможна потеря данных
 d:\prog\defenders\gui.h(15): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
 d:\prog\defenders\gui.h(31): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
-d:\prog\defenders\game.cpp(28): warning C4244: инициализация: преобразование "sf::Int64" в "float", возможна потеря данных
-d:\prog\defenders\game.cpp(79): warning C4244: инициализация: преобразование "float" в "int", возможна потеря данных
+d:\prog\defenders\gui.h(61): warning C4244: =: преобразование "double" в "float", возможна потеря данных
+d:\prog\defenders\game.cpp(29): warning C4244: инициализация: преобразование "sf::Int64" в "float", возможна потеря данных
 d:\prog\defenders\game.cpp(80): warning C4244: инициализация: преобразование "float" в "int", возможна потеря данных
-d:\prog\defenders\game.cpp(82): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
-d:\prog\defenders\game.cpp(149): warning C4244: -=: преобразование "float" в "unsigned short", возможна потеря данных
+d:\prog\defenders\game.cpp(81): warning C4244: инициализация: преобразование "float" в "int", возможна потеря данных
+d:\prog\defenders\game.cpp(83): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+d:\prog\defenders\game.cpp(152): warning C4244: -=: преобразование "float" в "unsigned short", возможна потеря данных
   Defenders.vcxproj -> D:\prog\Debug\Defenders.exe
   Defenders.vcxproj -> D:\prog\Debug\Defenders.pdb (Partial PDB)

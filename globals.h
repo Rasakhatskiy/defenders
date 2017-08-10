@@ -32,8 +32,8 @@ const VideoMode _Mode1280x720_(1280, 720, 32);
 const short _MapSize_ = 100;
 const short _TileMapSize_ = 50;
 
-extern Texture tilesetTexture, arbaletTex;
-extern Sprite grassSpr, platformSpr, heartStoneSpr, wallSpr,
+extern Texture tilesetTexture, arbaletTex, menuTex;
+extern Sprite grassSpr, platformSpr, heartStoneSpr, wallSpr, menuSpr,
 playerSpr, enemySpr,
 axeSprite;
 extern Font font;
