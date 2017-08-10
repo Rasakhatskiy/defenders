@@ -12,7 +12,7 @@ public:
 	string str;
 	RectangleShape shape;
 	healthBar(int m) {
-		shape.setSize(Vector2f(m, 20));
+		shape.setSize(Vector2f((float)m, (float)20));
 		shape.setFillColor(Color::Red);
 		
 		max = m;
@@ -28,7 +28,7 @@ public:
 		//-_-_-_-__-text position
 		Vector2f tpos(view.getCenter().x - 550, view.getCenter().y + 250);
 		shape.setPosition(tpos);
-		shape.setSize(Vector2f(h, 20));
+		shape.setSize(Vector2f((float)h, (float)20));
 		window.draw(shape);
 	}
 };
@@ -58,37 +58,73 @@ public:
 		Vector2f center = window.getView().getCenter();
 		float dX = mouse.x - center.x;
 		float dY = mouse.y - center.y;
-		angle = (atan2(dY, dX)) * 180 / 3.14159265;
-		cout << chosen << endl;
+		angle = (atan2(dY, dX)) * 180 / 3.14159265f;
+		cout << center.x - mouse.x << " " << center.y - mouse.y << endl;
 		menuSpr.setPosition(center);
 		window.draw(menuSpr);
 
-		if (angle > -113 && angle < -68) {
-			chosen = 1;
-		}
-		if (angle > -68 && angle < -23) {
-			chosen = 2;
-		}
-		if (angle > -23 && angle < 22) {
-			chosen = 3;
-		}
-		if (angle > 22 && angle < 67) {
-			chosen = 4;
-		}
-		if (angle > 67 && angle < 112) {
-			chosen = 5;
-		}
-		if (angle > 112 && angle < 157) {
-			chosen = 6;
-		}
-		if ((angle > 157 && angle < 180 )|| (angle > -180 && angle < -158)) {
-			chosen = 7;
-		}
-		if (angle > -158 && angle < -113) {
-			chosen = 8;
+		axeSprite.setPosition(center.x + 232, center.y - 201);
+		axeSprite.setRotation(45);
+		axeSprite.setScale(2, 2);
+		window.draw(axeSprite);
+		axeSprite.setScale(1, 1);
+
+		pickaxeSprite.setPosition(center.x + 307, center.y - 4);
+		pickaxeSprite.setRotation(65);
+		pickaxeSprite.setScale(2, 2);
+		window.draw(pickaxeSprite);
+		pickaxeSprite.setScale(1, 1);
+
+		weaponSprite.setPosition(center.x + 201, center.y + 246);
+		weaponSprite.setRotation(135);
+		weaponSprite.setScale(2, 2);
+		window.draw(weaponSprite);
+		weaponSprite.setScale(1, 1);
+
+		{
+			if (angle > -113 && angle < -68) {
+				chosen = 1;
+			}
+			if (angle > -68 && angle < -23) {
+				chosen = 2;
+			}
+			if (angle > -23 && angle < 22) {
+				chosen = 3;
+			}
+			if (angle > 22 && angle < 67) {
+				chosen = 4;
+			}
+			if (angle > 67 && angle < 112) {
+				chosen = 5;
+			}
+			if (angle > 112 && angle < 157) {
+				chosen = 6;
+			}
+			if ((angle > 157 && angle < 180) || (angle > -180 && angle < -158)) {
+				chosen = 7;
+			}
+			if (angle > -158 && angle < -113) {
+				chosen = 8;
+			}
 		}
 
-
+		Sprite t;
+		
+		if(chosen == 2){
+			t = axeSprite;
+		}
+		if (chosen == 3) {
+			t = pickaxeSprite;
+		}
+		if (chosen == 4) {
+			t = weaponSprite;
+		}
+		t.setOrigin(35, 23);
+		t.setPosition(center);
+		t.setScale(3, 3);
+		t.setRotation(45);
+		window.draw(t);
+		
 		//angle += 180;
 	}
 };

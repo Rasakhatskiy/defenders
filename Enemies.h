@@ -24,7 +24,7 @@ public:
 		pos = p;
 		damage = dmg;
 
-		coef = 50.0 / health;
+		coef = 50.f / health;
 
 		sprite.setTexture(tilesetTexture);
 		sprite.setTextureRect(IntRect(17,17,34,34));
@@ -49,19 +49,19 @@ public:
 				float coefY = (tar.y - pos.y) / distance;
 				if (coefX > 0) {
 					if (map[(int)((pos.x + 17) / 50)][(int)(pos.y / 50)][1] == 0)
-						pos.x += 0.05*time*(tar.x - pos.x) / distance;
+						pos.x += 0.05f*time*(tar.x - pos.x) / distance;
 				}
 				else {
 					if (map[(int)((pos.x - 17) / 50)][(int)(pos.y / 50)][1] == 0)
-						pos.x += 0.05*time*(tar.x - pos.x) / distance;
+						pos.x += 0.05f*time*(tar.x - pos.x) / distance;
 				}
 				if (coefY > 0) {
 					if (map[(int)(pos.x / 50)][(int)((pos.y + 17) / 50)][1] == 0)
-						pos.y += 0.05*time*(tar.y - pos.y) / distance;
+						pos.y += 0.05f*time*(tar.y - pos.y) / distance;
 				}
 				else {
 					if (map[(int)(pos.x / 50)][(int)((pos.y - 17) / 50)][1] == 0)
-						pos.y += 0.05*time*(tar.y - pos.y) / distance;
+						pos.y += 0.05f*time*(tar.y - pos.y) / distance;
 				}	
 			}
 		}
@@ -70,10 +70,7 @@ public:
 		sprite.setPosition(pos);
 	}
 	void rotation(Vector2f tar) {
-		float dX = tar.x - sprite.getPosition().x;
-		float dY = tar.y - sprite.getPosition().y;
-		float rotation = (atan2(dY, dX)) * 180 / 3.14159265;
-		sprite.setRotation(rotation - 90);
+		sprite.setRotation(getAngle(pos, tar)+90);
 	}
 	void draw(RenderWindow &window) {
 		if (entityOnTheScreen(window, pos)) {
@@ -98,20 +95,20 @@ public:
 			float coefY = (mob.y - pos.y) / distance;
 
 			if (coefX < 0) {
-				if (map[(int)((pos.x + 17) / 50)][(int)(pos.y / 50)][1] == 0)
-					pos.x -= 0.09*time*(mob.x - pos.x) / distance;
+				if (map[(int)((pos.x + 17) / mapTile)][(int)(pos.y / mapTile)][1] == 0)
+					pos.x -= 0.09f*time*(mob.x - pos.x) / distance;
 			}
 			else {
-				if (map[(int)((pos.x - 17) / 50)][(int)(pos.y / 50)][1] == 0)
-					pos.x -= 0.09*time*(mob.x - pos.x) / distance;
+				if (map[(int)((pos.x - 17) / mapTile)][(int)(pos.y / mapTile)][1] == 0)
+					pos.x -= 0.09f*time*(mob.x - pos.x) / distance;
 			}
 			if (coefY < 0) {
-				if (map[(int)(pos.x / 50)][(int)((pos.y + 17) / 50)][1] == 0)
-					pos.y -= 0.09*time*(mob.y - pos.y) / distance;
+				if (map[(int)(pos.x / mapTile)][(int)((pos.y + 17) / mapTile)][1] == 0)
+					pos.y -= 0.09f*time*(mob.y - pos.y) / distance;
 			}
 			else {
-				if (map[(int)(pos.x / 50)][(int)((pos.y - 17) / 50)][1] == 0)
-					pos.y -= 0.09*time*(mob.y - pos.y) / distance;
+				if (map[(int)(pos.x / mapTile)][(int)((pos.y - 17) / mapTile)][1] == 0)
+					pos.y -= 0.09f*time*(mob.y - pos.y) / distance;
 			}
 		}
 	}

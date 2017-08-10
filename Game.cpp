@@ -26,7 +26,7 @@ void game(RenderWindow &window) {
 	float lastTime = 0;
 	float fpsTimer = 0;
 	while (window.isOpen()) {
-		float time = clock.getElapsedTime().asMicroseconds();
+		float time = (float)clock.getElapsedTime().asMicroseconds();
 		//clock.restart();
 		float currentTime = clock.restart().asSeconds();
 		float fps = 1.f / (currentTime);
@@ -77,10 +77,10 @@ void game(RenderWindow &window) {
 				player.health -= 5;
 			}
 			if (Keyboard::isKeyPressed(Keyboard::T)) {
-				int tx = pos.x / 50;
-				int ty = pos.y / 50;
+				int tx = (int)(pos.x / 50);
+				int ty = (int)(pos.y / 50);
 				if (map[tx][ty][1] == 0 && map[tx + 1][ty][1] == 0 && map[tx][ty + 1][1] == 0 && map[tx + 1][ty + 1][1] == 0)
-					towersVector.push_back(Tower(Vector2f(tx * 50, ty * 50), 1000, 10));
+					towersVector.push_back(Tower(Vector2f((float)(tx * 50), (float)(ty * 50)), 1000, 10));
 				clickTimer = 0;
 			}
 			if (Mouse::isButtonPressed(Mouse::Right)) {
@@ -111,13 +111,11 @@ void game(RenderWindow &window) {
 				window.close();
 		}
 
-		axeSprite.setPosition(player.pos);
-		axeSprite.setRotation(player.angle);
-
+		player.setAmmo();
 		////////////////////////////////////////////////////////////////////////////////////////
 		RectangleShape DebugShape;
 		DebugShape.setFillColor(Color::Red);
-		DebugShape.setOrigin(50, -24);
+		DebugShape.setOrigin(50, +24);
 		DebugShape.setSize(Vector2f(20, 20));
 		DebugShape.setRotation(player.sprite.getRotation());
 		DebugShape.setPosition(axeSprite.getPosition().x, axeSprite.getPosition().y);
@@ -224,7 +222,15 @@ void game(RenderWindow &window) {
 		//Player
 		player.update(time, pos);
 		window.draw(player.sprite);
-		window.draw(axeSprite);
+
+		if(cMenu.chosen == 2)
+			window.draw(axeSprite);
+		if (cMenu.chosen == 3)
+			window.draw(pickaxeSprite);
+		if (cMenu.chosen == 4)
+			window.draw(weaponSprite);
+
+		window.draw(DebugShape);
 		//Bar
 		bar.draw(window, player.health);
 		if (Keyboard::isKeyPressed(Keyboard::Tab)) {

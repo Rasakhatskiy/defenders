@@ -27,7 +27,7 @@ public:
 		pos.y += 50;
 
 		health = hp;
-		coef = 100.0/health;
+		coef = 100.f/health;
 		damage = dmg;
 
 		sprite.setTexture(arbaletTex);
@@ -35,8 +35,8 @@ public:
 		sprite.setOrigin(60, 60);
 		rect = sprite.getGlobalBounds();
 		
-		posOnMapX = (pos.x-50) / 50;
-		posOnMapY = (pos.y-50) / 50;
+		posOnMapX = (int)((pos.x-50) / 50);
+		posOnMapY = (int)((pos.y-50) / 50);
 		map[posOnMapX][posOnMapY][1] = 10;
 		map[posOnMapX + 1][posOnMapY][1] = 11;
 		map[posOnMapX][posOnMapY + 1][1] = 11;
@@ -51,7 +51,7 @@ public:
 	void rotation(Vector2f en) {
 		float dX = en.x - pos.x;
 		float dY = en.y - pos.y;
-		angle = (atan2(dY, dX)) * 180 / 3.14159265;
+		angle = (atan2(dY, dX)) * 180 / 3.14159265f;
 		angle += 90;//kostil`
 		sprite.setRotation(angle);
 	}
@@ -70,7 +70,7 @@ public:
 		
 	}
 	void fire(std::vector<Enemy>& vectorEnemies, std::vector<Arrow>& vectorArrows) {
-		float minDist = 66666666;//PATAMUCHTA
+		float minDist = 66666666.f;//PATAMUCHTA
 		Vector2f temp(pos);
 		for (auto i = vectorEnemies.begin(); i != vectorEnemies.end(); i++) {
 			float distance = sqrt((i->pos.x - pos.x)*(i->pos.x - pos.x) + (i->pos.y - pos.y)*(i->pos.y - pos.y));
@@ -108,11 +108,11 @@ public:
 	Wall(Vector2f p, short h/*, short typo*/) {
 		health = h;
 		pos = p;
-		posOnMap = Vector2i(pos.x / 50, pos.y / 50);
-		pos = Vector2f(posOnMap.x * 50, posOnMap.y * 50);
+		posOnMap = Vector2i((int)(pos.x / 50), (int)(pos.y / 50));
+		pos = Vector2f((float)(posOnMap.x * 50), (float)(posOnMap.y * 50));
 		map[posOnMap.x][posOnMap.y][1] = 1;
 		rect = FloatRect(pos.x, pos.y, 50, 50);
-		coef = 45.0 / health;
+		coef = 45.0f / health;
 	}
 	void clearMap() {
 		map[posOnMap.x][posOnMap.y][1] = 0;

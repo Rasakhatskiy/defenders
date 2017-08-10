@@ -30,12 +30,13 @@ using std::vector;
 const VideoMode _Mode1600x900_(1600, 900, 32);
 const VideoMode _Mode1280x720_(1280, 720, 32);
 const short _MapSize_ = 100;
-const short _TileMapSize_ = 50;
+const short mapTile = 50;
+const int MAX = 60000;
 
 extern Texture tilesetTexture, arbaletTex, menuTex;
 extern Sprite grassSpr, platformSpr, heartStoneSpr, wallSpr, menuSpr,
 playerSpr, enemySpr,
-axeSprite;
+axeSprite, pickaxeSprite, weaponSprite;
 extern Font font;
 extern View view;
 
@@ -50,3 +51,4 @@ void drawMap(RenderWindow &window);
 void setMap();
 void setView(RenderWindow &window, Vector2f pos);
 bool entityOnTheScreen(RenderWindow &window, Vector2f pos);
+float getAngle(Vector2f position, Vector2f target);

@@ -1,4 +1,4 @@
-#include<SFML\Graphics.hpp>
+#include <SFML\Graphics.hpp>
 #include "globals.h";
 #include "Enemies.h"
 #include "Bullets.h"
@@ -6,7 +6,7 @@ using namespace sf;
 
 Texture tilesetTexture, arbaletTex, menuTex;
 Sprite grassSpr, platformSpr, playerSpr, enemySpr, heartStoneSpr, wallSpr, menuSpr,
-axeSprite;
+axeSprite, pickaxeSprite, weaponSprite;
 Font font;
 View view;
 Text fpsText;
@@ -44,7 +44,16 @@ void loadTextures() {
 
 	axeSprite.setTexture(tilesetTexture);
 	axeSprite.setTextureRect(IntRect(167, 12, 69, 15));
-	axeSprite.setOrigin(50, -24);
+	axeSprite.setOrigin(50, +24);
+
+	pickaxeSprite.setTexture(tilesetTexture);
+	pickaxeSprite.setTextureRect(IntRect(178, 27, 60, 20));
+	pickaxeSprite.setOrigin(40, +17);
+
+	weaponSprite.setTexture(tilesetTexture);
+	weaponSprite.setTextureRect(IntRect(167, 0, 71, 12));
+	weaponSprite.setOrigin(50, +24);
+
 
 	menuTex.loadFromFile("res/menu.png");
 	menuSpr.setTexture(menuTex);
@@ -54,19 +63,19 @@ void setView(RenderWindow &window, Vector2f pos) {
 	Vector2f viewPos = pos;
 	//left side
 	if (pos.x <= window.getSize().x / 2) {
-		viewPos.x = window.getSize().x / 2;
+		viewPos.x = (float)window.getSize().x / 2;
 	}
 	//top side
 	if (pos.y <= window.getSize().y / 2) {
-		viewPos.y = window.getSize().y / 2;
+		viewPos.y = (float)window.getSize().y / 2;
 	}
 	//right side
-	if (pos.x >= _MapSize_ * 50 - window.getSize().x / 2) {
-		viewPos.x = _MapSize_ * 50 - window.getSize().x / 2;
+	if (pos.x >= _MapSize_ * mapTile - window.getSize().x / 2) {
+		viewPos.x = _MapSize_ * mapTile - (float)window.getSize().x / 2;
 	}
 	//bottom side
-	if (pos.y >= _MapSize_ * 50 - window.getSize().y / 2) {
-		viewPos.y = _MapSize_ * 50 - window.getSize().y / 2;
+	if (pos.y >= _MapSize_ * mapTile - window.getSize().y / 2) {
+		viewPos.y = _MapSize_ * mapTile - (float)window.getSize().y / 2;
 	}
 	view.setCenter(viewPos);
 	//accept the view
@@ -85,10 +94,10 @@ void drawMap(RenderWindow &window) {
 	long counter = 0;
 	Sprite t, empty;
 	Vector2f center = window.getView().getCenter();
-	int p1 = ((center.x - window.getSize().x / 2) / 50) - 1,
-		p2 = ((center.y - window.getSize().y / 2) / 50) - 1,
-		p3 = ((center.x + window.getSize().x / 2) / 50) + 1,
-		p4 = ((center.y + window.getSize().y / 2) / 50) + 1;
+	int p1 = (int)((center.x - window.getSize().x / 2) / 50) - 1,
+		p2 = (int)((center.y - window.getSize().y / 2) / 50) - 1,
+		p3 = (int)((center.x + window.getSize().x / 2) / 50) + 1,
+		p4 = (int)((center.y + window.getSize().y / 2) / 50) + 1;
 	if (p1 < 0)p1 = 0;
 	if (p2 < 0)p2 = 0;
 	if (p3 > _MapSize_) p3 = _MapSize_;
@@ -102,7 +111,7 @@ void drawMap(RenderWindow &window) {
 			else {
 				t = empty;
 			}
-			t.setPosition(i * 50, j * 50);
+			t.setPosition((float)(i * 50), (float)( j * 50));
 			window.draw(t);
 			if (map[i][j][1] == 1) {
 				t = wallSpr;
@@ -110,8 +119,17 @@ void drawMap(RenderWindow &window) {
 			else {
 				t = empty;
 			}
-			t.setPosition(i * 50, j * 50);
+			t.setPosition((float)(i * 50), (float)(j * 50));
 			window.draw(t);
 		}
 	}
+}
+float getAngle(Vector2f position, Vector2f target) {
+	float dX = target.x - position.x;
+	float dY = target.y - position.y;
+	float angle = (atan2(dY, dX)) * 180 / 3.14159265f;
+	if (angle < 0) {
+		angle = 360 + angle;
+	}
+	return angle;
 }

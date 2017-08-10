@@ -12,7 +12,7 @@ public:
 		hurtTimer = 0;
 
 		pos = p;
-		coef = 100.0 / health;
+		coef = 100.f / health;
 
 		sprite.setTexture(tilesetTexture);
 		sprite.setTextureRect(IntRect(100, 100, 100, 100));

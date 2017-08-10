@@ -25,7 +25,7 @@ public:
 		coef.y = (tar.y - pos.y) / distance;
 	}
 	void move(float time) {
-		lifetimer -= time / 0.5;
+		lifetimer -= time / 0.5f;
 		
 		pos.x += speed*time*coef.x;
 		pos.y += speed*time*coef.y;	
