@@ -230,7 +230,7 @@ void game(RenderWindow &window) {
 		if (cMenu.chosen == 4)
 			window.draw(weaponSprite);
 
-		window.draw(DebugShape);
+		//window.draw(DebugShape);
 		//Bar
 		bar.draw(window, player.health);
 		if (Keyboard::isKeyPressed(Keyboard::Tab)) {

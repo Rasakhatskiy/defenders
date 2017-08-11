@@ -45,15 +45,17 @@ void loadTextures() {
 	axeSprite.setTexture(tilesetTexture);
 	axeSprite.setTextureRect(IntRect(167, 12, 69, 15));
 	axeSprite.setOrigin(50, +24);
+	axeSprite.setScale(-1, -1);
 
 	pickaxeSprite.setTexture(tilesetTexture);
 	pickaxeSprite.setTextureRect(IntRect(178, 27, 60, 20));
 	pickaxeSprite.setOrigin(40, +17);
+	pickaxeSprite.setScale(-1, 1);
 
 	weaponSprite.setTexture(tilesetTexture);
 	weaponSprite.setTextureRect(IntRect(167, 0, 71, 12));
 	weaponSprite.setOrigin(50, +24);
-
+	weaponSprite.setScale(-1, 1);
 
 	menuTex.loadFromFile("res/menu.png");
 	menuSpr.setTexture(menuTex);

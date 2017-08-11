@@ -36,7 +36,7 @@ public:
 			window.draw(sprite);
 			RectangleShape shape;
 			shape.setFillColor(Color::Green);
-			shape.setPosition(pos.x - 50, pos.y + 45);
+			shape.setPosition(pos.x, pos.y + 90);
 			shape.setSize(Vector2f(health*coef, 2));
 			window.draw(shape);
 		}

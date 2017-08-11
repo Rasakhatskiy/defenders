@@ -63,23 +63,27 @@ public:
 		menuSpr.setPosition(center);
 		window.draw(menuSpr);
 
-		axeSprite.setPosition(center.x + 232, center.y - 201);
-		axeSprite.setRotation(45);
-		axeSprite.setScale(2, 2);
-		window.draw(axeSprite);
-		axeSprite.setScale(1, 1);
+		Sprite axe, pickAxe, weap;
+		axe = axeSprite;
+		axe.setPosition(center.x + 232, center.y - 201);
+		axe.setRotation(45);
+		axe.setScale(2, 2);
+		window.draw(axe);
+		axe.setScale(1, 1);
 
-		pickaxeSprite.setPosition(center.x + 307, center.y - 4);
-		pickaxeSprite.setRotation(65);
-		pickaxeSprite.setScale(2, 2);
-		window.draw(pickaxeSprite);
-		pickaxeSprite.setScale(1, 1);
+		pickAxe = pickaxeSprite;
+		pickAxe.setPosition(center.x + 307, center.y - 4);
+		pickAxe.setRotation(65);
+		pickAxe.setScale(2, 2);
+		window.draw(pickAxe);
+		pickAxe.setScale(1, 1);
 
-		weaponSprite.setPosition(center.x + 201, center.y + 246);
-		weaponSprite.setRotation(135);
-		weaponSprite.setScale(2, 2);
-		window.draw(weaponSprite);
-		weaponSprite.setScale(1, 1);
+		weap = weaponSprite;
+		weap.setPosition(center.x + 201, center.y + 246);
+		weap.setRotation(135);
+		weap.setScale(2, 2);
+		window.draw(weap);
+		weap.setScale(1, 1);
 
 		{
 			if (angle > -113 && angle < -68) {

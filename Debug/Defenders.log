@@ -1,8 +1,4 @@
-﻿  Game.cpp
-  Создание кода...
-  Пропуск... (изменения не обнаружены)
-  main.cpp
-  globals.cpp
-  Menu.cpp
+﻿  globals.cpp
+d:\prog\defenders\globals.cpp(2): warning C4067: непредвиденные лексемы за директивой препроцессора, требуется newline
   Defenders.vcxproj -> D:\prog\Debug\Defenders.exe
   Defenders.vcxproj -> D:\prog\Debug\Defenders.pdb (Partial PDB)
