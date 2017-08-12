@@ -44,11 +44,39 @@ bool entityOnTheScreen(RenderWindow &window, Vector2f pos) {
 	else return false;
 }
 
+short getWheelPosition(float angle) {
+	if (angle > 246 && angle < 291) {
+		return 1;
+	}
+	if (angle > 291 && angle < 336) {
+		return 2;
+	}
+	if ((angle > 336 && angle < 360) || (angle > 0 && angle < 22)) {
+		return 3;
+	}
+	if (angle > 22 && angle < 67) {
+		return 4;
+	}
+	if (angle > 67 && angle < 112) {
+		return 5;
+	}
+	if (angle > 112 && angle < 157) {
+		return 6;
+	}
+	if (angle > 157 && angle < 201) {
+		return 7;
+	}
+	if (angle > 201 && angle < 246) {
+		return 8;
+	}
+}
+
 class circleMenu {
 public:
 	bool isOpen;
 	short chosen;
 	float angle;
+	Sprite axeOnWheel, pickAxeOnWheel, weaponOnWheel;
 	circleMenu() {
 		isOpen = false;
 		chosen = 0;
@@ -56,91 +84,49 @@ public:
 	}
 	void choose(RenderWindow &window, Vector2f mouse) {
 		Vector2f center = window.getView().getCenter();
-		float dX = mouse.x - center.x;
-		float dY = mouse.y - center.y;
-		angle = (atan2(dY, dX)) * 180 / 3.14159265f;
-		cout << center.x - mouse.x << " " << center.y - mouse.y << endl;
+		angle = getAngle(center, mouse);
+		chosen = getWheelPosition(angle);
+		//cout << center.x - mouse.x << " " << center.y - mouse.y << endl;
 		menuSpr.setPosition(center);
-		window.draw(menuSpr);
-
-		Sprite axe, pickAxe, weap;
-		axe = axeSprite;
-		axe.setPosition(center.x + 232, center.y - 201);
-		axe.setRotation(45);
-		axe.setScale(2, 2);
-		window.draw(axe);
-		axe.setScale(1, 1);
-
-		pickAxe = pickaxeSprite;
-		pickAxe.setPosition(center.x + 307, center.y - 4);
-		pickAxe.setRotation(65);
-		pickAxe.setScale(2, 2);
-		window.draw(pickAxe);
-		pickAxe.setScale(1, 1);
-
-		weap = weaponSprite;
-		weap.setPosition(center.x + 201, center.y + 246);
-		weap.setRotation(135);
-		weap.setScale(2, 2);
-		window.draw(weap);
-		weap.setScale(1, 1);
-
-		{
-			if (angle > -113 && angle < -68) {
-				chosen = 1;
-			}
-			if (angle > -68 && angle < -23) {
-				chosen = 2;
-			}
-			if (angle > -23 && angle < 22) {
-				chosen = 3;
-			}
-			if (angle > 22 && angle < 67) {
-				chosen = 4;
-			}
-			if (angle > 67 && angle < 112) {
-				chosen = 5;
-			}
-			if (angle > 112 && angle < 157) {
-				chosen = 6;
-			}
-			if ((angle > 157 && angle < 180) || (angle > -180 && angle < -158)) {
-				chosen = 7;
-			}
-			if (angle > -158 && angle < -113) {
-				chosen = 8;
-			}
-		}
-
-		Sprite t;
+		//position of elements on wheel
+		axeOnWheel = axeSprite;
+		axeOnWheel.setPosition(center.x + 232, center.y - 201);
+		axeOnWheel.setRotation(45);
+		axeOnWheel.setScale(2, 2);
+		axeOnWheel.setOrigin(47, -22);
 		
+		pickAxeOnWheel = pickaxeSprite;
+		pickAxeOnWheel.setPosition(center.x + 307, center.y - 4);
+		pickAxeOnWheel.setRotation(65);
+		pickAxeOnWheel.setScale(2, 2);
+		pickAxeOnWheel.setOrigin(40, -18);
+	
+		weaponOnWheel = weaponSprite;
+		weaponOnWheel.setPosition(center.x + 201, center.y + 246);
+		weaponOnWheel.setRotation(135);
+		weaponOnWheel.setScale(2, 2);
+		weaponOnWheel.setOrigin(54, -30);
+		
+		//what in center
+		Sprite centerSprite;
 		if(chosen == 2){
-			t = axeSprite;
+			centerSprite = axeSprite;
 		}
 		if (chosen == 3) {
-			t = pickaxeSprite;
+			centerSprite = pickaxeSprite;
 		}
 		if (chosen == 4) {
-			t = weaponSprite;
+			centerSprite = weaponSprite;
 		}
-		t.setOrigin(35, 23);
-		t.setPosition(center);
-		t.setScale(3, 3);
-		t.setRotation(45);
-		window.draw(t);
-		
-		//angle += 180;
+		centerSprite.setOrigin(35, 23);
+		centerSprite.setPosition(center);
+		centerSprite.setScale(3, 3);
+		centerSprite.setRotation(45);
+
+		window.draw(menuSpr);
+		window.draw(axeOnWheel);
+		window.draw(pickAxeOnWheel);
+		window.draw(weaponOnWheel);
+		window.draw(centerSprite);
 	}
 };
-
-/*class Rectangle {
-private:
-	Vector2f p1, p2, p3, p4;
-public:
-	Rectangle(float a, float b, float w, float h, float an) {
-		p1 = Vector2f(a, b);
-		p2 = Vector2f(a+w, b);
-		p3 = Vector2f(a+w, b+h);
-		p4 = Vector2f(a, b+h);
-	}
-};*/

@@ -65,12 +65,12 @@ public:
 		rect = sprite.getGlobalBounds();
 
 		if (attacTimer > 0 && attacTimer < 250) {
-			if (angleBonus <= 90)
-				angleBonus += 5;
-		}
-		if (attacTimer > 250 && attacTimer < 500) {
 			if (angleBonus >= 0)
 				angleBonus -= 5;
+		}
+		if (attacTimer > 250 && attacTimer < 500) {
+			if (angleBonus <= 90)
+				angleBonus += 5;
 		}
 		angle += angleBonus;
 		sprite.setRotation(angle);

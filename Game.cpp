@@ -25,6 +25,13 @@ void game(RenderWindow &window) {
 	float spawnMonsterTimer = 0;
 	float lastTime = 0;
 	float fpsTimer = 0;
+	///////////////////////////////////////////////////////////////
+	RectangleShape DebugShape;
+	DebugShape.setFillColor(Color::Red);
+	DebugShape.setOrigin(-28, 45);
+	DebugShape.setSize(Vector2f(20, 20));
+	//////////////////////////////////////////////////////////////
+
 	while (window.isOpen()) {
 		float time = (float)clock.getElapsedTime().asMicroseconds();
 		//clock.restart();
@@ -113,10 +120,7 @@ void game(RenderWindow &window) {
 
 		player.setAmmo();
 		////////////////////////////////////////////////////////////////////////////////////////
-		RectangleShape DebugShape;
-		DebugShape.setFillColor(Color::Red);
-		DebugShape.setOrigin(50, +24);
-		DebugShape.setSize(Vector2f(20, 20));
+		
 		DebugShape.setRotation(player.sprite.getRotation());
 		DebugShape.setPosition(axeSprite.getPosition().x, axeSprite.getPosition().y);
 		////////////////////////////////////////////////////////////////////////////////////////
@@ -230,6 +234,7 @@ void game(RenderWindow &window) {
 		if (cMenu.chosen == 4)
 			window.draw(weaponSprite);
 
+		
 		//window.draw(DebugShape);
 		//Bar
 		bar.draw(window, player.health);

@@ -44,17 +44,17 @@ void loadTextures() {
 
 	axeSprite.setTexture(tilesetTexture);
 	axeSprite.setTextureRect(IntRect(167, 12, 69, 15));
-	axeSprite.setOrigin(50, +24);
+	axeSprite.setOrigin(47, -22);
 	axeSprite.setScale(-1, -1);
 
 	pickaxeSprite.setTexture(tilesetTexture);
 	pickaxeSprite.setTextureRect(IntRect(178, 27, 60, 20));
-	pickaxeSprite.setOrigin(40, +17);
+	pickaxeSprite.setOrigin(38, +35);
 	pickaxeSprite.setScale(-1, 1);
 
 	weaponSprite.setTexture(tilesetTexture);
 	weaponSprite.setTextureRect(IntRect(167, 0, 71, 12));
-	weaponSprite.setOrigin(50, +24);
+	weaponSprite.setOrigin(52, +31);
 	weaponSprite.setScale(-1, 1);
 
 	menuTex.loadFromFile("res/menu.png");
@@ -134,4 +134,24 @@ float getAngle(Vector2f position, Vector2f target) {
 		angle = 360 + angle;
 	}
 	return angle;
+}
+
+void setOriginsOfSprite(Sprite &sprite, float &clickTimer) {
+	short a = 1;
+	if (Keyboard::isKeyPressed(Keyboard::I)) {
+		a = -1;
+	}
+
+	if (clickTimer > 100) {
+		if (Keyboard::isKeyPressed(Keyboard::U)) {
+			sprite.setOrigin(sprite.getOrigin().x + a, sprite.getOrigin().y);
+			cout << sprite.getOrigin().x << " " << sprite.getOrigin().y << endl;
+			clickTimer = 0;
+		}
+		if (Keyboard::isKeyPressed(Keyboard::J)) {
+			sprite.setOrigin(sprite.getOrigin().x, sprite.getOrigin().y + a);
+			cout << sprite.getOrigin().x << " " << sprite.getOrigin().y << endl;
+			clickTimer = 0;
+		}
+	}
 }
