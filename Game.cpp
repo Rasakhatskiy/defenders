@@ -25,6 +25,8 @@ void game(RenderWindow &window) {
 	float spawnMonsterTimer = 0;
 	float lastTime = 0;
 	float fpsTimer = 0;
+
+	bool isGrid = false;
 	///////////////////////////////////////////////////////////////
 	RectangleShape DebugShape;
 	DebugShape.setFillColor(Color::Red);
@@ -66,14 +68,17 @@ void game(RenderWindow &window) {
 	
 		window.clear();
 		setView(window, player.pos);
-		drawMap(window);
+		drawMap(window, isGrid);
 
 		if (clickTimer > 200) {
 			if (Keyboard::isKeyPressed(Keyboard::Q)) {
 				wallsVector.push_back(Wall(Vector2f(pos.x, pos.y), 1000));
 				clickTimer = 0;
 			}
-
+			if (Keyboard::isKeyPressed(Keyboard::G)) {
+				isGrid = !isGrid;
+				clickTimer = 0;
+			}
 			if (Keyboard::isKeyPressed(Keyboard::R)) {
 				player.rotation(pos);
 			}
@@ -99,8 +104,6 @@ void game(RenderWindow &window) {
 				clickTimer = 0;
 			}
 		}
-
-		
 
 		if (spawnMonsterTimer > 4000) {
 			int tx, ty;
@@ -226,7 +229,7 @@ void game(RenderWindow &window) {
 		//Player
 		player.update(time, pos);
 		window.draw(player.sprite);
-
+		//27x15
 		if(cMenu.chosen == 2)
 			window.draw(axeSprite);
 		if (cMenu.chosen == 3)

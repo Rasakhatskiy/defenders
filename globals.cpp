@@ -5,7 +5,7 @@
 using namespace sf;
 
 Texture tilesetTexture, arbaletTex, menuTex;
-Sprite grassSpr, platformSpr, playerSpr, enemySpr, heartStoneSpr, wallSpr, menuSpr,
+Sprite grassSpr, platformSpr, playerSpr, enemySpr, heartStoneSpr, wallSpr, menuSpr, gridSpr,
 axeSprite, pickaxeSprite, weaponSprite;
 Font font;
 View view;
@@ -22,7 +22,8 @@ void loadTextures() {
 	grassSpr.setTexture(tilesetTexture);
 	grassSpr.setTextureRect(IntRect(50, 200, 50, 50));
 
-	
+	gridSpr.setTexture(tilesetTexture);
+	gridSpr.setTextureRect(IntRect(52, 0, 50, 50));
 
 	platformSpr.setTexture(tilesetTexture);
 	platformSpr.setTextureRect(IntRect(0, 100, 100, 100));
@@ -92,7 +93,7 @@ void setMap() {
 	}
 
 }
-void drawMap(RenderWindow &window) {
+void drawMap(RenderWindow &window, bool isGrid) {
 	long counter = 0;
 	Sprite t, empty;
 	Vector2f center = window.getView().getCenter();
@@ -123,6 +124,10 @@ void drawMap(RenderWindow &window) {
 			}
 			t.setPosition((float)(i * 50), (float)(j * 50));
 			window.draw(t);
+			if (isGrid) {
+				gridSpr.setPosition((float)(i * 50), (float)(j * 50));
+				window.draw(gridSpr);
+			}
 		}
 	}
 }
@@ -135,7 +140,6 @@ float getAngle(Vector2f position, Vector2f target) {
 	}
 	return angle;
 }
-
 void setOriginsOfSprite(Sprite &sprite, float &clickTimer) {
 	short a = 1;
 	if (Keyboard::isKeyPressed(Keyboard::I)) {

@@ -34,7 +34,7 @@ const short mapTile = 50;
 const int MAX = 60000;
 
 extern Texture tilesetTexture, arbaletTex, menuTex;
-extern Sprite grassSpr, platformSpr, heartStoneSpr, wallSpr, menuSpr,
+extern Sprite grassSpr, platformSpr, heartStoneSpr, wallSpr, menuSpr, gridSpr,
 playerSpr, enemySpr,
 axeSprite, pickaxeSprite, weaponSprite;
 extern Font font;
@@ -47,7 +47,7 @@ extern unsigned short map[_MapSize_][_MapSize_][2];
 void menu(RenderWindow &window);
 void loadTextures();
 void game(RenderWindow &window);
-void drawMap(RenderWindow &window);
+void drawMap(RenderWindow &window, bool isGrid);
 void setMap();
 void setView(RenderWindow &window, Vector2f pos);
 bool entityOnTheScreen(RenderWindow &window, Vector2f pos);
