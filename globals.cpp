@@ -159,3 +159,12 @@ void setOriginsOfSprite(Sprite &sprite, float &clickTimer) {
 		}
 	}
 }
+void day_nightCircle(RenderWindow &window, float gameTime) {
+	RectangleShape shape;
+	shape.setSize(Vector2f(window.getView().getSize().x, window.getView().getSize().y));
+	float coef = 250.f / 360000.f;
+	shape.setFillColor(Color(0,0,0,(int)(coef * gameTime)));
+	shape.setOrigin(window.getView().getSize().x / 2, window.getView().getSize().y / 2);
+	shape.setPosition(window.getView().getCenter());
+	window.draw(shape);
+}

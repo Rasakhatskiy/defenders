@@ -25,8 +25,11 @@ void game(RenderWindow &window) {
 	float spawnMonsterTimer = 0;
 	float lastTime = 0;
 	float fpsTimer = 0;
+	float gameTime = 0;
+	float timeSpeed = 1.f;
 
 	bool isGrid = false;
+	bool toNight = true;
 	///////////////////////////////////////////////////////////////
 	RectangleShape DebugShape;
 	DebugShape.setFillColor(Color::Red);
@@ -42,8 +45,9 @@ void game(RenderWindow &window) {
 
 		lastTime = currentTime;
 		time = time / 900;
-
-
+		
+		time *= timeSpeed;
+		timeSpeed = 1.f;
 
 		Vector2f fpsPos(view.getCenter().x - 300, view.getCenter().y + 200);
 		if (fpsTimer > 100) {
@@ -56,7 +60,19 @@ void game(RenderWindow &window) {
 		clickTimer += time;
 		fpsTimer += time;
 		spawnMonsterTimer += time;
+		if (toNight) {
+			gameTime += time;
+		}
+		else {
+			gameTime -= time;
+		}
+		if (gameTime > 360000)
+			toNight = false;
+		if (gameTime <= 1)
+			toNight = true;
+		
 
+		//if (gameTime >= 360000) gameTime = 0;
 		if (fpsTimer > 1000) fpsTimer = 1000;
 		if (clickTimer > 1000) clickTimer = 1000;
 		if (spawnMonsterTimer > 5000) spawnMonsterTimer = 5000;
@@ -69,6 +85,10 @@ void game(RenderWindow &window) {
 		window.clear();
 		setView(window, player.pos);
 		drawMap(window, isGrid);
+
+		if (Keyboard::isKeyPressed(Keyboard::K)) {
+			timeSpeed = 2.f;
+		}
 
 		if (clickTimer > 200) {
 			if (Keyboard::isKeyPressed(Keyboard::Q)) {
@@ -244,6 +264,7 @@ void game(RenderWindow &window) {
 		if (Keyboard::isKeyPressed(Keyboard::Tab)) {
 			cMenu.choose(window, pos);
 		}
+		day_nightCircle(window, gameTime);
 		window.display();
 	}
 }

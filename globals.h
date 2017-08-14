@@ -53,3 +53,4 @@ void setView(RenderWindow &window, Vector2f pos);
 bool entityOnTheScreen(RenderWindow &window, Vector2f pos);
 float getAngle(Vector2f position, Vector2f target);
 void setOriginsOfSprite(Sprite &sprite, float &clickTimer);
+void day_nightCircle(RenderWindow &window, float gameTime);
