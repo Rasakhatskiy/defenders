@@ -6,7 +6,8 @@ using namespace sf;
 
 Texture tilesetTexture, arbaletTex, menuTex;
 Sprite grassSpr, platformSpr, playerSpr, enemySpr, heartStoneSpr, wallSpr, menuSpr, gridSpr,
-axeSprite, pickaxeSprite, weaponSprite;
+axeSprite, pickaxeSprite, weaponSprite,
+treeSpr, tree2Spr, stoneSpr;
 Font font;
 View view;
 Text fpsText;
@@ -18,6 +19,19 @@ void loadTextures() {
 	view.reset(sf::FloatRect(100, 100, 1280, 720));
 	tilesetTexture.loadFromFile("res/defenders-tiles.png");
 	arbaletTex.loadFromFile("res/arbalet.png");
+
+	//tree 1 -   0, 250,  86,  91
+	//tree 2 -  86, 250,  87,  91
+	//stone  - 173, 250,  86,  89
+
+	treeSpr.setTexture(tilesetTexture);
+	treeSpr.setTextureRect(IntRect(0, 250, 86, 91));
+
+	tree2Spr.setTexture(tilesetTexture);
+	tree2Spr.setTextureRect(IntRect(86, 250, 87, 91));
+
+	stoneSpr.setTexture(tilesetTexture);
+	stoneSpr.setTextureRect(IntRect(173, 250, 86, 89));
 
 	grassSpr.setTexture(tilesetTexture);
 	grassSpr.setTextureRect(IntRect(50, 200, 50, 50));
@@ -61,6 +75,8 @@ void loadTextures() {
 	menuTex.loadFromFile("res/menu.png");
 	menuSpr.setTexture(menuTex);
 	menuSpr.setOrigin(300, 300);
+	
+
 }
 void setView(RenderWindow &window, Vector2f pos) {
 	Vector2f viewPos = pos;
@@ -89,9 +105,40 @@ void setMap() {
 		for (int j = 0; j < _MapSize_; j++) {
 			map[i][j][0] = 0;
 			map[i][j][1] = 0;
+			
 		}
 	}
-
+	for (int i = 0; i < _MapSize_; i++) {
+		for (int j = 0; j < _MapSize_; j++) {
+			if (chance(1)) {
+				if (map[i][j][1] == 0) {
+					map[i][j][1] = 66;
+					map[i + 1][j][1] = 67;
+					map[i][j + 1][1] = 67;
+					map[i + 1][j + 1][1] = 67;
+					continue;
+				}
+			}
+			if (chance(1)) {
+				if (map[i][j][1] == 0) {
+					map[i][j][1] = 68;
+					map[i + 1][j][1] = 69;
+					map[i][j + 1][1] = 69;
+					map[i + 1][j + 1][1] = 69;
+					continue;
+				}
+			}
+			if (chance(1)) {
+				if (map[i][j][1] == 0) {
+					map[i][j][1] = 70;
+					map[i + 1][j][1] = 71;
+					map[i][j + 1][1] = 71;
+					map[i + 1][j + 1][1] = 71;
+					continue;
+				}
+			}
+		}
+	}
 }
 void drawMap(RenderWindow &window, bool isGrid) {
 	long counter = 0;
@@ -108,22 +155,44 @@ void drawMap(RenderWindow &window, bool isGrid) {
 
 	for (int i = p1; i < p3; i++) {
 		for (int j = p2; j < p4; j++) {
-			if (map[i][j][0] == 0) {
+
+			switch (map[i][j][0]) {
+			case 0:
 				t = grassSpr;
-			}
-			else {
+				break;
+			default:
 				t = empty;
+				break;
 			}
 			t.setPosition((float)(i * 50), (float)( j * 50));
 			window.draw(t);
-			if (map[i][j][1] == 1) {
+			
+		}
+	}
+	for (int i = p1; i < p3; i++) {
+		for (int j = p2; j < p4; j++) {
+			bool isEmpty = false;
+			switch (map[i][j][1]) {
+			case 1:
 				t = wallSpr;
-			}
-			else {
-				t = empty;
+				break;
+			case 66:
+				t = treeSpr;
+				break;
+			case 68:
+				t = tree2Spr;
+				break;
+			case 70:
+				t = stoneSpr;
+				break;
+			default:
+				isEmpty = true;
+				break;
 			}
 			t.setPosition((float)(i * 50), (float)(j * 50));
-			window.draw(t);
+			if (!isEmpty)
+				window.draw(t);
+
 			if (isGrid) {
 				gridSpr.setPosition((float)(i * 50), (float)(j * 50));
 				window.draw(gridSpr);
@@ -167,4 +236,11 @@ void day_nightCircle(RenderWindow &window, float gameTime) {
 	shape.setOrigin(window.getView().getSize().x / 2, window.getView().getSize().y / 2);
 	shape.setPosition(window.getView().getCenter());
 	window.draw(shape);
+}
+bool chance(int persentRate_0_100) {
+	int randomNumber = rand() % 100;
+	if (randomNumber < persentRate_0_100) {
+		return true;
+	}
+	return false;
 }

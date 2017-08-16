@@ -69,6 +69,7 @@ short getWheelPosition(float angle) {
 	if (angle > 201 && angle < 246) {
 		return 8;
 	}
+	return -1;
 }
 
 class circleMenu {

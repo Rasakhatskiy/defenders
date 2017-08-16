@@ -14,19 +14,29 @@ void game(RenderWindow &window) {
 	Player player(Vector2f(ResStone.sprite.getPosition().x + 100, ResStone.sprite.getPosition().y + 100));
 	healthBar bar(1000);
 	
-	vector<Tower> towersVector;
+	/*vector<Tower> towersVector;
 	vector<Wall> wallsVector;
 	vector<Arrow> arrowsVector;
-	vector<Enemy> enemiesVector;
+	vector<Enemy> enemiesVector;*/
+
+	list<Tower> towersVector;
+	list<Wall> wallsVector;
+	list<Arrow> arrowsVector;
+	list<Enemy> enemiesVector;
+
 	circleMenu cMenu;
 
-	float angle = 0;
 	float clickTimer = 0;
 	float spawnMonsterTimer = 0;
 	float lastTime = 0;
 	float fpsTimer = 0;
 	float gameTime = 0;
 	float timeSpeed = 1.f;
+
+	unsigned long amountOfStone = 0,
+		amountOfWood = 0,
+		amountOfFood = 0,
+		amountOfIron = 0;
 
 	bool isGrid = false;
 	bool toNight = true;
@@ -72,7 +82,7 @@ void game(RenderWindow &window) {
 			toNight = true;
 		
 
-		//if (gameTime >= 360000) gameTime = 0;
+		
 		if (fpsTimer > 1000) fpsTimer = 1000;
 		if (clickTimer > 1000) clickTimer = 1000;
 		if (spawnMonsterTimer > 5000) spawnMonsterTimer = 5000;
@@ -129,9 +139,11 @@ void game(RenderWindow &window) {
 			int tx, ty;
 			tx = rand() % 1000 - 500;
 			ty = rand() % 1000 - 500;
-			if (map[(int)((tx + player.pos.x) / 50)][(int)((ty + player.pos.y) / 50)][1] == 0) {
-				enemiesVector.push_back(Enemy(Vector2f(tx + player.pos.x, ty + player.pos.y), 100, 10));
-				spawnMonsterTimer = 0;
+			if (gameTime > 300000) {
+				if (map[(int)((tx + player.pos.x) / 50)][(int)((ty + player.pos.y) / 50)][1] == 0) {
+					enemiesVector.push_back(Enemy(Vector2f(tx + player.pos.x, ty + player.pos.y), 100, 10));
+					spawnMonsterTimer = 0;
+				}
 			}
 		}
 
@@ -250,10 +262,16 @@ void game(RenderWindow &window) {
 		player.update(time, pos);
 		window.draw(player.sprite);
 		//27x15
-		if(cMenu.chosen == 2)
+		if (cMenu.chosen == 2) {
 			window.draw(axeSprite);
-		if (cMenu.chosen == 3)
-			window.draw(pickaxeSprite);
+			player.damageBonus = 1;
+		}
+		else
+			if (cMenu.chosen == 3) {
+				window.draw(pickaxeSprite);
+				player.damageBonus = 0.5;
+			}
+				
 		if (cMenu.chosen == 4)
 			window.draw(weaponSprite);
 

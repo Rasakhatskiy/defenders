@@ -9,6 +9,8 @@
 //wall    - 1  -  9
 //arbalet - 10 - 19
 //cannon  - 20 - 29
+//tree    - 66,67,68,69
+//stone   - 70, 71
 
 
 int main() {

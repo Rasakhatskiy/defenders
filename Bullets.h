@@ -40,4 +40,5 @@ public:
 	}
 };
 
-extern vector<Arrow> arrowsVector;
+//extern vector<Arrow> arrowsVector;
+extern list<Arrow> arrowsVector;

@@ -69,7 +69,7 @@ public:
 		}
 		
 	}
-	void fire(std::vector<Enemy>& vectorEnemies, std::vector<Arrow>& vectorArrows) {
+	void fire(std::list<Enemy>& vectorEnemies, std::list<Arrow>& vectorArrows) {
 		float minDist = 66666666.f;//PATAMUCHTA
 		Vector2f temp(pos);
 		for (auto i = vectorEnemies.begin(); i != vectorEnemies.end(); i++) {
@@ -86,7 +86,7 @@ public:
 			timer = 0;
 		}
 	}
-	void update(RenderWindow &window, float time, std::vector<Enemy>& vectorEnemies, std::vector<Arrow>& vectorArrows) {
+	void update(RenderWindow &window, float time, std::list<Enemy>& vectorEnemies, std::list<Arrow>& vectorArrows) {
 		timer += time / 10;
 		if (timer > 100)isAttac = true;
 		else isAttac = false;
@@ -130,5 +130,9 @@ public:
 	}
 };
 
-extern vector<Tower> towersVector;
-extern vector<Wall> wallsVector;
+//extern vector<Tower> towersVector;
+//extern vector<Wall> wallsVector;
+
+
+extern list<Tower> towersVector;
+extern list<Wall> wallsVector;

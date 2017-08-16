@@ -18,6 +18,7 @@ ONLY "EXTERN" "CONST" & PROTOTYPES
 #include <SFML/Network.hpp>
 #include <SFML/System.hpp>
 #include <iostream>
+#include <list>
 
 
 using namespace sf;
@@ -26,6 +27,7 @@ using std::cin;
 using std::endl;
 using std::string;
 using std::vector;
+using std::list;
 
 const VideoMode _Mode1600x900_(1600, 900, 32);
 const VideoMode _Mode1280x720_(1280, 720, 32);
@@ -36,7 +38,8 @@ const int MAX = 60000;
 extern Texture tilesetTexture, arbaletTex, menuTex;
 extern Sprite grassSpr, platformSpr, heartStoneSpr, wallSpr, menuSpr, gridSpr,
 playerSpr, enemySpr,
-axeSprite, pickaxeSprite, weaponSprite;
+axeSprite, pickaxeSprite, weaponSprite,
+treeSpr, tree2Spr, stoneSpr;
 extern Font font;
 extern View view;
 
@@ -54,3 +57,4 @@ bool entityOnTheScreen(RenderWindow &window, Vector2f pos);
 float getAngle(Vector2f position, Vector2f target);
 void setOriginsOfSprite(Sprite &sprite, float &clickTimer);
 void day_nightCircle(RenderWindow &window, float gameTime);
+bool chance(int persentRate_0_100);

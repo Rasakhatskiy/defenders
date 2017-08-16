@@ -1,4 +1,4 @@
-﻿  Game.cpp
-d:\prog\defenders\gui.h(72): warning C4715: getWheelPosition: значение возвращается не при всех путях выполнения
+﻿  globals.cpp
+d:\prog\defenders\globals.cpp(2): warning C4067: непредвиденные лексемы за директивой препроцессора, требуется newline
   Defenders.vcxproj -> D:\prog\Debug\Defenders.exe
   Defenders.vcxproj -> D:\prog\Debug\Defenders.pdb (Partial PDB)
